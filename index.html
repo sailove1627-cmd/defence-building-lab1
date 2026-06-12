@@ -1,0 +1,3106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>빌딩을 지켜라! 내진 디펜스</title>
+  <style>
+    :root {
+      --navy: #06152f;
+      --deep: #020817;
+      --panel: #082756;
+      --panel-2: #0b3973;
+      --cyan: #27d8ff;
+      --yellow: #ffd43b;
+      --green: #58e25a;
+      --red: #ff5d4f;
+      --orange: #ff9d22;
+      --purple: #b06cff;
+      --white: #f6fbff;
+      --muted: #a9c7e8;
+      --shadow: #001026;
+      --pixel: 3px;
+      --font: "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      color: var(--white);
+      font-family: var(--font);
+      background:
+        linear-gradient(transparent 0 22px, rgba(39, 216, 255, 0.05) 23px),
+        linear-gradient(90deg, transparent 0 22px, rgba(39, 216, 255, 0.05) 23px),
+        radial-gradient(circle at 12% 18%, rgba(255, 212, 59, 0.18), transparent 12%),
+        radial-gradient(circle at 78% 10%, rgba(39, 216, 255, 0.15), transparent 14%),
+        var(--deep);
+      background-size: 24px 24px, 24px 24px, 100% 100%, 100% 100%, 100% 100%;
+      overflow: hidden;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    .game {
+      width: min(1800px, 100%);
+      height: 100vh;
+      margin: 0 auto;
+      padding: 8px;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .pixel-box {
+      border: var(--pixel) solid #062148;
+      box-shadow:
+        0 0 0 3px #1aa7ff,
+        inset 0 0 0 3px rgba(255, 255, 255, 0.08),
+        7px 7px 0 var(--shadow);
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    }
+
+    .top-banner {
+      display: grid;
+      grid-template-columns: minmax(210px, 1fr) minmax(300px, 2.2fr) minmax(210px, 1fr);
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 0;
+    }
+
+    .event-card,
+    .badge-toast {
+      min-height: 54px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .event-card {
+      justify-content: center;
+      background: linear-gradient(180deg, #0c7a36, #063516);
+      box-shadow: 0 0 0 3px #6efa6b, inset 0 0 0 3px rgba(255,255,255,0.12), 6px 6px 0 #001026;
+    }
+
+    .title-card {
+      position: relative;
+      min-height: 58px;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(180deg, #09284e, #040a1c);
+    }
+
+    .title-card h1 {
+      margin: 2px 0 0;
+      color: #fff275;
+      font-size: clamp(24px, 3.4vw, 46px);
+      letter-spacing: 0;
+      text-shadow:
+        4px 4px 0 #0b0b0b,
+        7px 7px 0 #1379d1;
+    }
+
+    .title-card p {
+      margin: -3px 0 0;
+      color: var(--cyan);
+      font-weight: 900;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .city-dots {
+      position: absolute;
+      inset: auto 0 0;
+      height: 16px;
+      background:
+        linear-gradient(90deg, transparent 0 2%, #0a3c75 2% 5%, transparent 5% 8%, #0a3c75 8% 11%, transparent 11% 15%, #0a3c75 15% 18%, transparent 18%),
+        linear-gradient(0deg, #031225, transparent);
+      opacity: 0.9;
+    }
+
+    .status-bar {
+      display: grid;
+      grid-template-columns: minmax(140px, 1.35fr) repeat(8, minmax(70px, 1fr));
+      gap: 4px;
+      padding: 5px;
+      margin-bottom: 0;
+      background: #030e22;
+      border: 3px solid #163a65;
+      box-shadow: inset 0 0 0 3px #061b3b, 0 4px 0 #000;
+    }
+
+    .status-item {
+      position: relative;
+      min-height: 48px;
+      padding: 5px 7px 5px 30px;
+      border: 2px solid #255f94;
+      background: linear-gradient(180deg, #061c3c, #030b1c);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .status-item::before {
+      content: attr(data-icon);
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 19px;
+      filter: drop-shadow(2px 2px 0 #000);
+      animation: statusBounce 1.9s ease-in-out infinite;
+    }
+
+    .status-item strong {
+      color: var(--cyan);
+      font-size: 12px;
+      text-shadow: 2px 2px 0 #000;
+      white-space: nowrap;
+    }
+
+    .status-item span {
+      color: var(--yellow);
+      font-size: clamp(15px, 1.35vw, 22px);
+      font-weight: 1000;
+      text-shadow: 3px 3px 0 #000;
+      white-space: nowrap;
+    }
+
+    @keyframes statusBounce {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-62%) scale(1.12); }
+    }
+
+    .mission-tiny {
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.3;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 286px minmax(520px, 1fr) 300px;
+      gap: 10px;
+      align-items: stretch;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .panel {
+      padding: 9px;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-color: var(--cyan) #031327;
+      scrollbar-width: thin;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      color: var(--cyan);
+      font-size: 21px;
+      font-weight: 1000;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    .section {
+      margin-bottom: 8px;
+      padding: 8px;
+      border: 3px solid #123b68;
+      background: rgba(0, 13, 35, 0.65);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.06);
+    }
+
+    .section h3 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: 16px;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .choice-grid,
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .tool-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pixel-btn {
+      min-height: 39px;
+      border: 3px solid #06152f;
+      color: var(--white);
+      font-weight: 1000;
+      cursor: pointer;
+      text-shadow: 2px 2px 0 #000;
+      background: linear-gradient(180deg, #194c84, #061b3d);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.11), 4px 4px 0 #000;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 0;
+      transition: transform 0.06s ease, filter 0.08s ease;
+    }
+
+    .pixel-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.11), 1px 1px 0 #000;
+    }
+
+    .pixel-btn.active {
+      color: #efffed;
+      background: linear-gradient(180deg, #36a83b, #0a4f19);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2), 0 0 0 3px #84ff60, 4px 4px 0 #000;
+    }
+
+    .choice-grid .pixel-btn[data-selected="true"] {
+      color: #efffed;
+      background: linear-gradient(180deg, #37bd3f, #075116);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2), 0 0 0 3px #84ff60, 4px 4px 0 #000;
+    }
+
+    .pixel-btn.warn {
+      background: linear-gradient(180deg, #df4f38, #7e140c);
+    }
+
+    .pixel-btn.good {
+      background: linear-gradient(180deg, #239f2d, #075214);
+    }
+
+    .pixel-btn.info {
+      background: linear-gradient(180deg, #157ed5, #06386c);
+    }
+
+    .pixel-btn.strong {
+      background: linear-gradient(180deg, #8d49e8, #3f176f);
+    }
+
+    .pixel-btn.gold {
+      color: #fff8d0;
+      background: linear-gradient(180deg, #f3b129, #9b5505);
+    }
+
+    .tool-btn {
+      justify-content: flex-start;
+      padding: 7px 8px;
+      font-size: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 -40%;
+      width: 34%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
+      transform: skewX(-18deg);
+      animation: toolShine 2.8s linear infinite;
+      pointer-events: none;
+    }
+
+    .tool-btn .asset-icon {
+      display: inline-block;
+      min-width: 24px;
+      text-align: center;
+      animation: toolBob 1.4s ease-in-out infinite;
+    }
+
+    .tool-btn.active .asset-icon {
+      animation: toolBob 0.65s ease-in-out infinite;
+    }
+
+    @keyframes toolBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-3px) rotate(-4deg); }
+    }
+
+    @keyframes toolShine {
+      0% { left: -45%; }
+      42%, 100% { left: 130%; }
+    }
+
+    .tool-btn small {
+      margin-left: auto;
+      color: #fff275;
+      font-size: 12px;
+    }
+
+    .asset-icon {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(2px 2px 0 #000);
+      flex: 0 0 auto;
+    }
+
+    .mission-list,
+    .badge-list {
+      display: grid;
+      gap: 6px;
+      max-height: 112px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .mission-card,
+    .badge-card {
+      padding: 7px;
+      border: 2px solid #2c6ca1;
+      background: #03142d;
+      color: #d9ecff;
+      font-size: 12px;
+      line-height: 1.35;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .badge-card img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(2px 2px 0 #000);
+    }
+
+    .mission-card.active {
+      border-color: var(--yellow);
+      color: #fff;
+      background: #173201;
+    }
+
+    .mission-card.done,
+    .badge-card.earned {
+      border-color: var(--green);
+      color: #dfffdd;
+      background: #082d12;
+      animation: badgeGlow 1.6s ease-in-out infinite;
+    }
+
+    .mission-card.locked {
+      opacity: .55;
+      filter: grayscale(.5);
+    }
+
+    @keyframes badgeGlow {
+      0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
+      50% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), 0 0 10px rgba(88,226,90,.55); }
+    }
+
+    .scene {
+      position: relative;
+      min-height: 0;
+      padding: 7px 10px 0;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #5cc8ff 0%, #77d5ff 42%, #346da4 43%, #14395f 71%, #7e4a20 72%, #4a2b14 100%);
+    }
+
+    .scene-asset {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      image-rendering: pixelated;
+      object-fit: contain;
+    }
+
+    .skyline-asset {
+      left: 0;
+      right: 0;
+      bottom: 214px;
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      opacity: .82;
+    }
+
+    .crane-asset {
+      left: 18px;
+      bottom: 68px;
+      width: 190px;
+      z-index: 3;
+    }
+
+    .excavator-asset {
+      left: 54px;
+      bottom: 22px;
+      width: 135px;
+      z-index: 4;
+    }
+
+    .fence-asset {
+      right: 42px;
+      bottom: 42px;
+      width: 210px;
+      z-index: 4;
+    }
+
+    .scene.scene-quake-weak {
+      animation: sceneQuakeWeak 0.55s linear 2;
+    }
+
+    .scene.scene-quake-medium {
+      animation: sceneQuakeMedium 0.46s linear 4;
+    }
+
+    .scene.scene-quake-strong {
+      animation: sceneQuakeStrong 0.34s linear 7;
+    }
+
+    @keyframes sceneQuakeWeak {
+      25% { transform: translateX(-1px); }
+      75% { transform: translateX(1px); }
+    }
+
+    @keyframes sceneQuakeMedium {
+      20% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      80% { transform: translateX(-3px); }
+    }
+
+    @keyframes sceneQuakeStrong {
+      15% { transform: translate(-8px, 2px); }
+      35% { transform: translate(7px, -1px); }
+      60% { transform: translate(-6px, 1px); }
+      82% { transform: translate(5px, -2px); }
+    }
+
+    .scene::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 155px;
+      height: 125px;
+      background:
+        linear-gradient(90deg, transparent 0 4%, rgba(10,54,101,.85) 4% 9%, transparent 9% 12%, rgba(13,75,133,.85) 12% 18%, transparent 18% 22%, rgba(8,44,87,.9) 22% 28%, transparent 28% 32%, rgba(14,81,141,.8) 32% 37%, transparent 37% 45%, rgba(11,55,101,.88) 45% 52%, transparent 52% 56%, rgba(8,44,87,.86) 56% 62%, transparent 62% 67%, rgba(13,75,133,.8) 67% 74%, transparent 74% 79%, rgba(9,49,93,.88) 79% 85%, transparent 85%),
+        repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,.22) 18px 22px);
+      opacity: .8;
+    }
+
+    .cloud {
+      position: absolute;
+      z-index: 1;
+      width: 130px;
+      height: 58px;
+      background: url("assets/seismic_defense_assets/05_environment/cloud_01.png") center / contain no-repeat;
+      image-rendering: pixelated;
+      opacity: .88;
+      animation: cloudDrift 18s linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      display: none;
+    }
+
+    .cloud::before {
+      left: 12px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .cloud::after {
+      right: 15px;
+      width: 38px;
+      height: 38px;
+    }
+
+    .cloud.one {
+      left: 8%;
+      top: 72px;
+    }
+
+    .cloud.two {
+      left: 64%;
+      top: 112px;
+      background-image: url("assets/seismic_defense_assets/05_environment/cloud_04.png");
+      transform: scale(.82);
+      animation-duration: 23s;
+      animation-delay: -8s;
+    }
+
+    @keyframes cloudDrift {
+      from { margin-left: -110px; }
+      to { margin-left: 110px; }
+    }
+
+    .scene-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 3px;
+      color: var(--yellow);
+      font-weight: 1000;
+      font-size: 22px;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    .cone {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 34px solid #ff7028;
+      filter: drop-shadow(3px 3px 0 #000);
+      position: relative;
+    }
+
+    .cone::after {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 18px;
+      width: 24px;
+      height: 6px;
+      background: #fff3d0;
+    }
+
+    .construction {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 140px minmax(340px, 620px) 130px;
+      gap: 14px;
+      align-items: end;
+      justify-content: center;
+      min-height: 0;
+      height: calc(100% - 34px);
+    }
+
+    .crane {
+      position: relative;
+      height: 330px;
+      align-self: end;
+    }
+
+    .crane .tower {
+      position: absolute;
+      left: 48px;
+      bottom: 54px;
+      width: 28px;
+      height: 205px;
+      border: 5px solid #5a3302;
+      background:
+        repeating-linear-gradient(45deg, transparent 0 18px, #ffd43b 18px 24px),
+        #f7a900;
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .crane .arm {
+      position: absolute;
+      left: 58px;
+      bottom: 248px;
+      width: 145px;
+      height: 24px;
+      border: 5px solid #5a3302;
+      background: repeating-linear-gradient(135deg, #f7a900 0 18px, #ffe066 18px 25px);
+      transform-origin: left center;
+      transform: rotate(7deg);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .crane .hook {
+      position: absolute;
+      left: 182px;
+      bottom: 180px;
+      width: 4px;
+      height: 70px;
+      background: #222;
+    }
+
+    .crane .hook::after {
+      content: "";
+      position: absolute;
+      left: -28px;
+      bottom: -22px;
+      width: 60px;
+      height: 22px;
+      background: #65798b;
+      border: 3px solid #1d2830;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .worker-zone {
+      position: relative;
+      min-height: 230px;
+      align-self: end;
+    }
+
+    .worker {
+      position: absolute;
+      left: 20px;
+      bottom: 54px;
+      width: 74px;
+      height: 112px;
+      filter: drop-shadow(4px 4px 0 #000);
+    }
+
+    .helmet {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      width: 44px;
+      height: 26px;
+      background: #ffd43b;
+      border: 3px solid #5a3302;
+      border-radius: 18px 18px 3px 3px;
+    }
+
+    .face {
+      position: absolute;
+      left: 18px;
+      top: 23px;
+      width: 38px;
+      height: 38px;
+      background: #ffc38a;
+      border: 3px solid #5a3302;
+    }
+
+    .body {
+      position: absolute;
+      left: 13px;
+      top: 62px;
+      width: 48px;
+      height: 50px;
+      background: #16b04d;
+      border: 3px solid #064d22;
+    }
+
+    .body::before,
+    .body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 8px;
+      height: 50px;
+      background: #ffe066;
+    }
+
+    .body::before {
+      left: 7px;
+    }
+
+    .body::after {
+      right: 7px;
+    }
+
+    .speech {
+      position: absolute;
+      left: -8px;
+      bottom: 166px;
+      width: 142px;
+      padding: 10px;
+      border: 3px solid #0a2037;
+      background: #fff;
+      color: #112;
+      font-weight: 1000;
+      text-align: center;
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .building-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .roof-zone {
+      display: grid;
+      grid-template-columns: repeat(4, var(--cell-size));
+      gap: 2px;
+      width: calc(var(--cell-size) * 4 + 6px);
+      min-height: 46px;
+      padding: 4px 4px 2px;
+      background: #1e2e3a;
+      border: 5px solid #10171f;
+      border-bottom: 0;
+      box-shadow: 5px 5px 0 #000;
+    }
+
+    .building-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, var(--cell-size));
+      gap: 2px;
+      padding: 5px 4px;
+      background: #2e3941;
+      border: 5px solid #10171f;
+      box-shadow: 5px 5px 0 #000;
+      transform-origin: bottom center;
+    }
+
+    .building-grid::after {
+      content: "";
+      position: absolute;
+    }
+
+    .building-grid.frame-column .cell {
+      background:
+        linear-gradient(90deg, #222c33 0 9px, transparent 9px calc(100% - 9px), #222c33 calc(100% - 9px)),
+        linear-gradient(180deg, #596a72, #303b42);
+    }
+
+    .building-grid.frame-steel .cell {
+      background:
+        linear-gradient(90deg, #b7c3cc 0 6px, transparent 6px calc(100% - 6px), #b7c3cc calc(100% - 6px)),
+        linear-gradient(180deg, rgba(255,255,255,.18) 0 6px, transparent 6px),
+        linear-gradient(180deg, #4b5960, #25323a);
+    }
+
+    .building-grid.frame-rc .cell {
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.09) 0 5px, transparent 5px 13px),
+        linear-gradient(180deg, #77756d, #3c3d3a);
+    }
+
+    .foundation-row {
+      display: grid;
+      grid-template-columns: repeat(4, var(--cell-size));
+      gap: 3px;
+      width: calc(var(--cell-size) * 4 + 9px);
+      padding: 7px 4px 5px;
+      background: repeating-linear-gradient(90deg, #16191d 0 16px, #ffc107 16px 26px);
+      border: 5px solid #0a0f16;
+      border-top: 0;
+      box-shadow: 5px 5px 0 #000;
+    }
+
+    .foundation-row.foundation-normal {
+      background:
+        repeating-linear-gradient(90deg, #16191d 0 16px, #ffc107 16px 26px),
+        linear-gradient(180deg, #2a2e34, #11151a);
+    }
+
+    .foundation-row.foundation-deep {
+      padding-bottom: 16px;
+      background:
+        linear-gradient(90deg, transparent 0 8%, #3d4650 8% 15%, transparent 15% 35%, #3d4650 35% 42%, transparent 42% 58%, #3d4650 58% 65%, transparent 65% 85%, #3d4650 85% 92%, transparent 92%),
+        repeating-linear-gradient(90deg, #151a20 0 14px, #ffbd19 14px 22px);
+    }
+
+    .foundation-row.foundation-mat {
+      padding-top: 11px;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 5px, transparent 5px 12px),
+        linear-gradient(180deg, #6d747c, #2a3038);
+    }
+
+    .site-base {
+      display: none;
+    }
+
+    .site-base.ground-hard {
+      background:
+        repeating-linear-gradient(135deg, #36414a 0 14px, #5a6670 14px 26px),
+        #36414a;
+    }
+
+    .site-base.ground-normal {
+      background:
+        repeating-linear-gradient(135deg, #70411e 0 18px, #8d572b 18px 30px),
+        #70411e;
+    }
+
+    .site-base.ground-soft {
+      background:
+        radial-gradient(circle at 18% 45%, #6bb16d 0 8px, transparent 9px),
+        radial-gradient(circle at 72% 35%, #4aa763 0 7px, transparent 8px),
+        repeating-linear-gradient(135deg, #3f6332 0 18px, #6a592c 18px 32px);
+    }
+
+    .site-base.foundation-deep {
+      height: 44px;
+      background:
+        linear-gradient(90deg, transparent 0 14%, #20262d 14% 19%, transparent 19% 39%, #20262d 39% 44%, transparent 44% 56%, #20262d 56% 61%, transparent 61% 81%, #20262d 81% 86%, transparent 86%),
+        repeating-linear-gradient(135deg, #70411e 0 18px, #8d572b 18px 30px);
+    }
+
+    .site-base.foundation-mat {
+      background:
+        linear-gradient(180deg, #9aa3ab 0 12px, transparent 12px),
+        repeating-linear-gradient(135deg, #70411e 0 18px, #8d572b 18px 30px);
+    }
+
+    .site-base.foundation-deep.ground-hard,
+    .site-base.foundation-deep.ground-normal,
+    .site-base.foundation-deep.ground-soft {
+      background:
+        linear-gradient(90deg, transparent 0 14%, #20262d 14% 19%, transparent 19% 39%, #20262d 39% 44%, transparent 44% 56%, #20262d 56% 61%, transparent 61% 81%, #20262d 81% 86%, transparent 86%),
+        repeating-linear-gradient(135deg, #70411e 0 18px, #8d572b 18px 30px);
+    }
+
+    .cell {
+      position: relative;
+      height: var(--cell-height);
+      min-height: 27px;
+      border: 3px solid #0b121a;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.08) 0 4px, transparent 4px),
+        linear-gradient(180deg, #52616a, #28343b);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    .cell.has-device {
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.22), 0 0 10px rgba(255,212,59,.4);
+    }
+
+    .cell.install-flash {
+      animation: installPulse 0.75s ease both;
+    }
+
+    @keyframes installPulse {
+      0% { filter: brightness(1); transform: scale(1); }
+      35% { filter: brightness(1.8); transform: scale(1.08); }
+      100% { filter: brightness(1); transform: scale(1); }
+    }
+
+    .spark {
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 24% 25%, #fff 0 3px, transparent 4px),
+        radial-gradient(circle at 78% 34%, #ffd43b 0 4px, transparent 5px),
+        radial-gradient(circle at 48% 76%, #27d8ff 0 3px, transparent 4px);
+      animation: sparkPop .65s ease both;
+    }
+
+    @keyframes sparkPop {
+      0% { opacity: 0; transform: scale(.6); }
+      30% { opacity: 1; transform: scale(1.15); }
+      100% { opacity: 0; transform: scale(1.45); }
+    }
+
+    .cell::before {
+      content: "";
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      top: 38%;
+      height: 7px;
+      border: 2px solid #2b1607;
+      background: #7bd8ff;
+      box-shadow: 0 9px 0 #4e2b0d;
+      opacity: 0.95;
+    }
+
+    .cell.roof {
+      background: linear-gradient(180deg, #384955, #18222c);
+    }
+
+    .cell.roof::before {
+      display: none;
+    }
+
+    .cell.foundation {
+      height: 36px;
+      min-height: 36px;
+      background: linear-gradient(180deg, #272a30, #11151a);
+    }
+
+    .foundation-deep .cell.foundation::after {
+      content: "";
+      position: absolute;
+      left: 42%;
+      top: 10px;
+      width: 16%;
+      height: 34px;
+      background: #aeb8c2;
+      border: 2px solid #38424b;
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .foundation-mat .cell.foundation {
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,.15) 0 4px, transparent 4px 9px),
+        linear-gradient(180deg, #8f9aa3, #4a535c);
+    }
+
+    .cell.foundation::before {
+      display: none;
+    }
+
+    .floor-label {
+      position: absolute;
+      right: -34px;
+      width: 28px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 1000;
+      background: #0b4f9c;
+      border: 3px solid #021328;
+      box-shadow: 3px 3px 0 #000;
+      text-shadow: 2px 2px 0 #000;
+      pointer-events: none;
+    }
+
+    .device {
+      position: absolute;
+      inset: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      font-weight: 1000;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .device.with-asset {
+      inset: 0;
+      padding: 2px;
+    }
+
+    .device.with-asset::before,
+    .device.with-asset::after {
+      display: none;
+    }
+
+    .device-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(2px 2px 0 #000);
+      animation: placedAssetPop .35s ease both;
+    }
+
+    @keyframes placedAssetPop {
+      0% { transform: scale(.72); opacity: .2; }
+      70% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .device.brace::before,
+    .device.brace::after {
+      content: "";
+      position: absolute;
+      width: 115%;
+      height: 7px;
+      background: #ff8a80;
+      border: 2px solid #7b100b;
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .device.brace {
+      outline: 3px solid rgba(255,138,128,.75);
+      outline-offset: -5px;
+    }
+
+    .device.brace::before {
+      transform: rotate(39deg);
+    }
+
+    .device.brace::after {
+      transform: rotate(-39deg);
+    }
+
+    .device.wall {
+      inset: 2px 18%;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.14) 0 5px, transparent 5px 12px),
+        linear-gradient(180deg, #d7d2c7, #8b8c86);
+      border: 3px solid #444;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .device.wall::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      background: repeating-linear-gradient(90deg, transparent 0 8px, rgba(0,0,0,.18) 8px 11px);
+    }
+
+    .device.damper {
+      inset: 18% 8%;
+      border: 4px solid #3b0c66;
+      background: #b06cff;
+      box-shadow: inset 0 0 0 5px #4be1ff, 3px 3px 0 #000;
+    }
+
+    .device.damper::after {
+      content: "◆";
+      color: #fff;
+      font-size: 22px;
+      animation: damperBeat .7s ease-in-out infinite alternate;
+    }
+
+    @keyframes damperBeat {
+      from { transform: scale(.82); }
+      to { transform: scale(1.12); }
+    }
+
+    .device.isolator {
+      inset: 8px 7px;
+      border-radius: 2px;
+      background:
+        repeating-linear-gradient(0deg, #222 0 6px, #4f5b67 6px 11px),
+        #4f5b67;
+      border: 3px solid #05080c;
+      box-shadow: 3px 3px 0 #000;
+      animation: isolatorSquish 1.1s ease-in-out infinite;
+    }
+
+    @keyframes isolatorSquish {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(.82); }
+    }
+
+    .device.tmd {
+      inset: -1px 12%;
+    }
+
+    .device.tmd::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 5px;
+      height: 72%;
+      background: #dce8f4;
+      box-shadow: 2px 2px 0 #000;
+      animation: pendulum 1.5s ease-in-out infinite alternate;
+      transform-origin: top center;
+    }
+
+    .device.tmd::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      width: 26px;
+      height: 20px;
+      background: #ffce3a;
+      border: 4px solid #7c4a00;
+      box-shadow: 3px 3px 0 #000;
+      animation: bob 1.5s ease-in-out infinite alternate;
+    }
+
+    .device.with-asset {
+      inset: 0 !important;
+      padding: 2px;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      outline: 0 !important;
+    }
+
+    .device.with-asset::before,
+    .device.with-asset::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    @keyframes pendulum {
+      from { transform: rotate(-12deg); }
+      to { transform: rotate(12deg); }
+    }
+
+    @keyframes bob {
+      from { transform: translateX(-9px); }
+      to { transform: translateX(9px); }
+    }
+
+    .crack {
+      position: absolute;
+      z-index: 6;
+      color: #101010;
+      font-size: 27px;
+      text-shadow: 1px 1px 0 #ffefef;
+      pointer-events: none;
+      animation: blink 0.4s steps(2) 6;
+    }
+
+    .crack::before {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 42px;
+      background: url("assets/seismic_defense_assets/03_effects/crack_medium.png") center / contain no-repeat;
+      image-rendering: pixelated;
+    }
+
+    .twist-mark {
+      position: absolute;
+      z-index: 7;
+      color: #ff5d4f;
+      font-size: 26px;
+      text-shadow: 2px 2px 0 #000;
+      animation: twistWarn .7s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .twist-mark::before {
+      content: "";
+      display: block;
+      width: 38px;
+      height: 38px;
+      background: url("assets/seismic_defense_assets/03_effects/warning_yellow.png") center / contain no-repeat;
+      image-rendering: pixelated;
+    }
+
+    @keyframes twistWarn {
+      from { transform: rotate(-18deg) scale(.9); }
+      to { transform: rotate(18deg) scale(1.18); }
+    }
+
+    .test-stamp {
+      position: absolute;
+      z-index: 8;
+      top: 75px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 230px;
+      padding: 14px;
+      text-align: center;
+      color: #fff;
+      font-weight: 1000;
+      font-size: 26px;
+      text-shadow: 3px 3px 0 #000;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .test-stamp.show {
+      opacity: 1;
+      animation: stamp 1.1s ease both;
+    }
+
+    .test-stamp.pass {
+      background: #138d31 url("assets/seismic_defense_assets/03_effects/success_banner.png") center / cover no-repeat;
+      border: 5px solid #7cff70;
+      box-shadow: 5px 5px 0 #000;
+    }
+
+    .test-stamp.fail {
+      background: #9b1e17 url("assets/seismic_defense_assets/03_effects/reinforce_needed_banner.png") center / cover no-repeat;
+      border: 5px solid #ff897d;
+      box-shadow: 5px 5px 0 #000;
+    }
+
+    @keyframes stamp {
+      0% { transform: translateX(-50%) scale(0.4) rotate(-8deg); opacity: 0; }
+      22% { transform: translateX(-50%) scale(1.12) rotate(3deg); opacity: 1; }
+      75% { opacity: 1; }
+      100% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 0; }
+    }
+
+    .shake-weak {
+      animation: shakeWeak 0.52s linear 3;
+    }
+
+    .shake-medium {
+      animation: shakeMedium 0.48s linear 4;
+    }
+
+    .shake-strong {
+      animation: shakeStrong 0.42s linear 5;
+    }
+
+    @keyframes shakeWeak {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    @keyframes shakeMedium {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      20% { transform: translateX(-9px) rotate(-0.5deg); }
+      50% { transform: translateX(8px) rotate(0.4deg); }
+      80% { transform: translateX(-6px) rotate(-0.3deg); }
+    }
+
+    @keyframes shakeStrong {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      15% { transform: translateX(-18px) rotate(-1.4deg); }
+      35% { transform: translateX(16px) rotate(1.2deg); }
+      60% { transform: translateX(-13px) rotate(-1deg); }
+      82% { transform: translateX(12px) rotate(0.8deg); }
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.25; }
+    }
+
+    .waves {
+      position: absolute;
+      left: 2%;
+      right: 2%;
+      bottom: 112px;
+      height: 24px;
+      z-index: 2;
+      opacity: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 0 45%, #fff 46% 52%, transparent 53%) 0 0 / 60px 24px repeat-x;
+      filter: drop-shadow(2px 2px 0 #003);
+    }
+
+    .waves.active {
+      opacity: 1;
+      animation: waveMove 0.35s linear infinite;
+    }
+
+    .waves.weak {
+      background: url("assets/seismic_defense_assets/03_effects/weak_earthquake_wave.png") center bottom / auto 34px repeat-x;
+      filter: drop-shadow(2px 2px 0 #003);
+    }
+
+    .waves.medium {
+      height: 30px;
+      background: url("assets/seismic_defense_assets/03_effects/medium_earthquake_wave.png") center bottom / auto 42px repeat-x;
+    }
+
+    .waves.strong {
+      height: 36px;
+      background: url("assets/seismic_defense_assets/03_effects/strong_earthquake_wave.png") center bottom / auto 56px repeat-x;
+      filter: drop-shadow(3px 3px 0 #5c0000);
+      animation-duration: 0.22s;
+    }
+
+    @keyframes waveMove {
+      from { background-position-x: 0; }
+      to { background-position-x: 60px; }
+    }
+
+    .notice {
+      display: none;
+      pointer-events: none;
+    }
+
+    .notice.show {
+      opacity: 1;
+      animation: noticePop 2.5s ease both;
+    }
+
+    @keyframes noticePop {
+      0% { transform: translateY(-10px); opacity: 0; }
+      10%, 85% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-10px); opacity: 0; }
+    }
+
+    .ground-items {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      height: 90px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .fence {
+      position: absolute;
+      left: 22%;
+      right: 20%;
+      bottom: 4px;
+      height: 38px;
+      background:
+        repeating-linear-gradient(90deg, #ffbf2e 0 18px, #2d1b04 18px 24px),
+        #ffbf2e;
+      border: 4px solid #3b2100;
+      box-shadow: 4px 4px 0 #000;
+      opacity: .9;
+    }
+
+    .excavator {
+      position: absolute;
+      left: 9%;
+      bottom: 18px;
+      width: 92px;
+      height: 44px;
+      filter: drop-shadow(3px 3px 0 #000);
+    }
+
+    .excavator::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      bottom: 10px;
+      width: 50px;
+      height: 24px;
+      background: #ffc400;
+      border: 4px solid #5c3700;
+    }
+
+    .excavator::after {
+      content: "";
+      position: absolute;
+      right: 4px;
+      bottom: 24px;
+      width: 38px;
+      height: 8px;
+      background: #ffc400;
+      border: 3px solid #5c3700;
+      transform: rotate(-28deg);
+      transform-origin: left center;
+    }
+
+    .sign {
+      position: absolute;
+      bottom: 0;
+      max-width: 130px;
+      padding: 6px 8px;
+      border: 3px solid #613200;
+      background: #fff3c4;
+      color: #16406f;
+      font-weight: 1000;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.15;
+      box-shadow: 3px 3px 0 #000;
+      opacity: .94;
+    }
+
+    .sign.left {
+      left: 8px;
+    }
+
+    .sign.right {
+      right: 8px;
+    }
+
+    .speech {
+      display: none;
+    }
+
+    .notice-dock {
+      min-height: 54px;
+      padding: 8px 10px;
+      border: 3px solid #ffbf2e;
+      background: linear-gradient(180deg, #fff5c2, #ffd86a);
+      color: #132033;
+      font-size: 12px;
+      font-weight: 1000;
+      line-height: 1.25;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.35), 3px 3px 0 #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .notice-dock.flash {
+      animation: dockPulse .38s ease both;
+    }
+
+    @keyframes dockPulse {
+      0% { transform: scale(.98); filter: brightness(1); }
+      45% { transform: scale(1.02); filter: brightness(1.25); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .analysis-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .metric-card {
+      padding: 8px;
+      border: 3px solid #1a5b91;
+      background: rgba(0, 9, 28, 0.78);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.06);
+    }
+
+    .metric-card h3 {
+      margin: 0 0 6px;
+      color: var(--cyan);
+      font-size: 15px;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .metric-list {
+      display: grid;
+      gap: 4px;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .bar {
+      height: 13px;
+      border: 2px solid #071729;
+      background: #061126;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.06);
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #fb4e4e, #ffd43b, #58e25a);
+      transition: width 0.2s ease;
+    }
+
+    .recommend {
+      color: #fff7b8;
+    }
+
+    .bottom-bar {
+      display: grid;
+      grid-template-columns: 132px repeat(5, minmax(132px, 1fr));
+      gap: 8px;
+      margin-top: 0;
+      align-items: stretch;
+      min-height: 58px;
+    }
+
+    .grade-card {
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      align-items: center;
+      padding: 5px;
+      background: #031327;
+      border: 3px solid #1e6099;
+      box-shadow: 5px 5px 0 #000;
+    }
+
+    .grade-big {
+      color: var(--yellow);
+      font-size: 38px;
+      font-weight: 1000;
+      text-align: center;
+      text-shadow: 4px 4px 0 #000;
+    }
+
+    .grade-sub {
+      color: #fff;
+      font-size: 11px;
+      line-height: 1.22;
+      font-weight: 900;
+    }
+
+    .budget-used span {
+      color: #ffb84a;
+    }
+
+    .budget-left span {
+      color: #76ff7d;
+    }
+
+    .budget-left.over span {
+      color: #ff5d4f;
+      animation: blink 0.45s steps(2) infinite;
+    }
+
+    .budget-total span {
+      color: #ffe66d;
+    }
+
+    .budget-note {
+      padding: 7px;
+      border: 2px solid #77590c;
+      background: #2c2205;
+      color: #fff4b8;
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 900;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.72);
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(760px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      padding: 18px;
+      background: linear-gradient(180deg, #0b3973, #071731);
+      border: 4px solid #021328;
+      box-shadow: 0 0 0 4px #27d8ff, 9px 9px 0 #000;
+    }
+
+    .modal h2 {
+      margin: 0 0 12px;
+      color: var(--yellow);
+      font-size: 30px;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    .modal p {
+      margin: 7px 0;
+      line-height: 1.5;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .modal-stat {
+      padding: 9px;
+      border: 2px solid #2d77b2;
+      background: #031327;
+      font-weight: 900;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 18px;
+      z-index: 80;
+      animation: fall 1.8s linear forwards;
+      pointer-events: none;
+    }
+
+    .control-panel {
+      padding: 9px;
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    .stage-list,
+    .npc-list,
+    .control-metrics {
+      display: grid;
+      gap: 7px;
+    }
+
+    .stage-card {
+      border: 3px solid #1a5b91;
+      background: #031327;
+      color: #d8edff;
+      padding: 8px;
+      text-align: left;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.05), 3px 3px 0 #000;
+    }
+
+    .stage-card div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stage-card.active {
+      border-color: var(--yellow);
+      background: #173201;
+      color: #fff;
+    }
+
+    .stage-card.done {
+      border-color: var(--green);
+      background: #083315;
+    }
+
+    .stage-card.locked {
+      opacity: .55;
+      filter: grayscale(.45);
+    }
+
+    .title-rank {
+      padding: 9px;
+      border: 3px solid #8a6200;
+      background: linear-gradient(180deg, #493500, #1f1700);
+      color: #fff4b8;
+      font-weight: 1000;
+      text-align: center;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .meter-line {
+      display: grid;
+      grid-template-columns: 74px 1fr 38px;
+      gap: 6px;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .meter-track {
+      height: 15px;
+      border: 2px solid #071729;
+      background: #061126;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.06);
+    }
+
+    .meter-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #ff5d4f, #ffd43b, #58e25a);
+      transition: width .25s ease;
+    }
+
+    .risk .meter-fill {
+      background: linear-gradient(90deg, #58e25a, #ffd43b, #ff5d4f);
+    }
+
+    .npc-card {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border: 3px solid #1a5b91;
+      background: rgba(0, 9, 28, .78);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.06);
+    }
+
+    .npc-face {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 3px solid #071729;
+      background: #fff5c2;
+      color: #111;
+      font-size: 24px;
+      box-shadow: 3px 3px 0 #000;
+      animation: npcNod 1.8s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    .npc-face img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .npc-text {
+      font-size: 12px;
+      line-height: 1.28;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    @keyframes npcNod {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .fail-coach {
+      min-height: 56px;
+      padding: 8px;
+      border: 3px solid #7e2c1e;
+      background: #2b0707;
+      color: #ffd8d3;
+      font-size: 12px;
+      line-height: 1.32;
+      font-weight: 900;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 1220px) {
+      .layout {
+        grid-template-columns: 236px minmax(360px, 1fr) 250px;
+      }
+
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-title {
+        font-size: 18px;
+      }
+
+      .bottom-bar {
+        grid-template-columns: 102px repeat(5, minmax(108px, 1fr));
+      }
+
+      .pixel-btn {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .top-banner {
+        grid-template-columns: 150px 1fr 150px;
+        gap: 6px;
+      }
+
+      .layout {
+        grid-template-columns: 200px minmax(300px, 1fr) 210px;
+        gap: 7px;
+      }
+
+      .panel {
+        min-height: auto;
+      }
+
+      .construction {
+        grid-template-columns: 1fr;
+      }
+
+      .crane,
+      .worker-zone {
+        display: none;
+      }
+
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-bar {
+        grid-template-columns: 82px repeat(5, minmax(88px, 1fr));
+        gap: 5px;
+      }
+
+      .status-bar {
+        grid-template-columns: minmax(115px, 1.4fr) repeat(8, minmax(58px, 1fr));
+      }
+
+      .pixel-btn {
+        min-height: 34px;
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      body {
+        overflow: auto;
+      }
+
+      .game {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+      }
+
+      .top-banner,
+      .layout,
+      .bottom-bar,
+      .status-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        max-height: 42vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="game">
+    <header class="top-banner">
+      <div class="badge-toast pixel-box" id="badgeToast">👷 ★ 첫 건축가를 기다리는 중!</div>
+      <div class="title-card pixel-box">
+        <h1 id="gameTitle">빌딩을 지켜라! 내진 디펜스</h1>
+        <p>구조 보강 챌린지 · 클릭해서 설치하고 흔들림을 막아라</p>
+        <div class="city-dots"></div>
+      </div>
+      <div class="event-card" id="eventCard">🏙 이벤트: 시청 지원금 +150 🪙</div>
+    </header>
+
+    <section class="status-bar" aria-label="상태바">
+      <div class="status-item" data-icon="🎯">
+        <strong>현재 미션</strong>
+        <div class="mission-tiny" id="currentMissionText">예산 10억원 안에서 8층 빌딩, 강한 지진 버티기</div>
+      </div>
+      <div class="status-item budget-used" data-icon="💸"><strong>사용 예산</strong><span id="spentBudget">0원</span></div>
+      <div class="status-item budget-left" id="leftBudgetBox" data-icon="🪙"><strong>남은 예산</strong><span id="leftBudget">10억원</span></div>
+      <div class="status-item budget-total" data-icon="🏦"><strong>총 예산</strong><span id="totalBudget">10억원</span></div>
+      <div class="status-item" data-icon="🛡"><strong>안전도</strong><span id="safetyScore">0</span></div>
+      <div class="status-item" data-icon="🏛"><strong>안정성</strong><span id="stabilityScore">0</span></div>
+      <div class="status-item" data-icon="〰"><strong>흔들림 감소율</strong><span id="shakeReduction">0%</span></div>
+      <div class="status-item" data-icon="🙂"><strong>주민만족도</strong><span id="satisfactionScore">100</span></div>
+      <div class="status-item" data-icon="🏅"><strong>예상 등급</strong><span id="expectedGrade">D</span></div>
+    </section>
+
+    <section class="layout">
+      <aside class="panel pixel-box">
+        <h2 class="panel-title">🧰 내진 도구함</h2>
+
+        <div class="section">
+          <h3>기초 구조</h3>
+          <div class="choice-grid" data-choice="foundation">
+            <button class="pixel-btn active" data-value="normal">일반 기초 0원</button>
+            <button class="pixel-btn" data-value="deep">깊은 기초 +1억 2천만원</button>
+            <button class="pixel-btn" data-value="mat">매트 기초 +1억 6천만원</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>건물 골조</h3>
+          <div class="choice-grid" data-choice="frame">
+            <button class="pixel-btn" data-value="column">일반 기둥 0원</button>
+            <button class="pixel-btn active" data-value="steel">철골 구조 +8천만원</button>
+            <button class="pixel-btn" data-value="rc">철근콘크리트 +1억원</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>건물 높이</h3>
+          <div class="choice-grid" data-choice="floors">
+            <button class="pixel-btn" data-value="3">3층</button>
+            <button class="pixel-btn" data-value="5">5층</button>
+            <button class="pixel-btn active" data-value="8">8층</button>
+            <button class="pixel-btn" data-value="12">12층</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>지반 조건</h3>
+          <div class="choice-grid" data-choice="ground">
+            <button class="pixel-btn" data-value="hard">단단한 지반</button>
+            <button class="pixel-btn active" data-value="normal">보통 지반</button>
+            <button class="pixel-btn" data-value="soft">연약 지반</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>설치 도구</h3>
+          <div class="budget-note" id="budgetNote">총예산 10억원 · 사용 0원 · 남은 10억원</div>
+          <div class="tool-grid" id="toolbox"></div>
+        </div>
+
+        <div class="section">
+          <h3>미션 선택</h3>
+          <div class="mission-list" id="missionList"></div>
+        </div>
+
+        <div class="section">
+          <h3>배지</h3>
+          <div class="badge-list" id="badgeList"></div>
+        </div>
+      </aside>
+
+      <section class="scene pixel-box" aria-label="건설 현장">
+        <img class="scene-asset skyline-asset" src="assets/seismic_defense_assets/05_environment/city_skyline_strip.png" alt="" aria-hidden="true">
+        <img class="scene-asset crane-asset" src="assets/seismic_defense_assets/05_environment/tower_crane.png" alt="" aria-hidden="true">
+        <img class="scene-asset excavator-asset" src="assets/seismic_defense_assets/05_environment/excavator.png" alt="" aria-hidden="true">
+        <img class="scene-asset fence-asset" src="assets/seismic_defense_assets/05_environment/chain_fence.png" alt="" aria-hidden="true">
+        <div class="cloud one" aria-hidden="true"></div>
+        <div class="cloud two" aria-hidden="true"></div>
+        <div class="scene-top">
+          <div class="cone"></div>
+          <span>건설 현장</span>
+          <div class="cone"></div>
+        </div>
+
+        <div class="construction">
+          <div class="crane" aria-hidden="true">
+            <div class="tower"></div>
+            <div class="arm"></div>
+            <div class="hook"></div>
+          </div>
+
+          <div class="building-wrap" id="buildingWrap">
+            <div class="test-stamp" id="testStamp"></div>
+            <div class="roof-zone" id="roofZone"></div>
+            <div class="building-grid" id="buildingGrid"></div>
+            <div class="foundation-row" id="foundationRow"></div>
+            <div class="site-base" id="siteBase"></div>
+          </div>
+
+          <div class="worker-zone" aria-hidden="true">
+            <div class="speech" id="workerSpeech">도구를 고르고 칸을 눌러보세요!</div>
+            <div class="worker">
+              <div class="helmet"></div>
+              <div class="face"></div>
+              <div class="body"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ground-items" aria-hidden="true">
+          <div class="fence"></div>
+          <div class="excavator"></div>
+          <div class="sign left">➕ 안전<br>체크</div>
+          <div class="sign right">내진 설계로<br>안전한 미래!</div>
+        </div>
+        <div class="waves" id="waves"></div>
+        <div class="notice" id="notice"></div>
+      </section>
+
+      <aside class="panel pixel-box control-panel">
+        <h2 class="panel-title">📡 관제센터</h2>
+
+        <div class="section">
+          <h3>현재 칭호</h3>
+          <div class="title-rank" id="rankTitle">초보 시공자</div>
+        </div>
+
+        <div class="section compact-notice">
+          <h3>현장 알림</h3>
+          <div class="notice-dock" id="noticeDock">도구를 선택하고 건물 칸을 눌러 설치해보세요.</div>
+        </div>
+
+        <div class="section">
+          <h3>스테이지</h3>
+          <div class="stage-list" id="stageList"></div>
+        </div>
+
+        <div class="section">
+          <h3>구조 상태</h3>
+          <div class="control-metrics" id="controlMetrics"></div>
+        </div>
+
+        <div class="section">
+          <h3>NPC 반응</h3>
+          <div class="npc-list">
+            <div class="npc-card"><div class="npc-face"><img id="guardFace" src="assets/seismic_defense_assets/04_npcs/safety_worker_neutral.png" alt=""></div><div class="npc-text" id="guardAdvice">하부층부터 보강하면 건물이 덜 흔들립니다.</div></div>
+            <div class="npc-card"><div class="npc-face"><img id="mayorFace" src="assets/seismic_defense_assets/04_npcs/mayor_neutral.png" alt=""></div><div class="npc-text" id="mayorAdvice">예산 안에서 안전한 설계를 기대합니다.</div></div>
+            <div class="npc-card"><div class="npc-face"><img id="residentFace" src="assets/seismic_defense_assets/04_npcs/resident_neutral.png" alt=""></div><div class="npc-text" id="residentAdvice">전단벽이 너무 많으면 공간이 답답해져요.</div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>다시 도전 코치</h3>
+          <div class="fail-coach" id="failCoach">지진 테스트 후 실패 원인과 개선 제안이 여기에 표시됩니다.</div>
+        </div>
+      </aside>
+
+    </section>
+
+    <footer class="bottom-bar">
+      <div class="grade-card">
+        <div class="grade-big" id="bottomGrade">D</div>
+        <div class="grade-sub">
+          예상 등급<br>
+          점수 <span id="bottomScore">0</span><br>
+          최고 <span id="bestGrade">-</span>
+        </div>
+      </div>
+      <button class="pixel-btn warn" id="resetBtn">↻ 설계 초기화</button>
+      <button class="pixel-btn good" data-test="weak">〰 약한 지진 테스트</button>
+      <button class="pixel-btn info" data-test="medium">〰 중간 지진 테스트</button>
+      <button class="pixel-btn strong" data-test="strong">〰 강한 지진 테스트</button>
+      <button class="pixel-btn gold" id="finalBtn">📋 최종 평가하기</button>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="quizModal">
+    <div class="modal">
+      <h2>🧠 내진 퀴즈</h2>
+      <p id="quizQuestion"></p>
+      <div class="quiz-options" id="quizOptions"></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="finalModal">
+    <div class="modal" id="finalContent"></div>
+  </div>
+
+  <script>
+    "use strict";
+
+    // 장치 데이터: 비용, 설치 위치, 핵심 교육 개념, 기본 효과를 한곳에 정리한다.
+    const DEVICES = {
+      brace: {
+        name: "X자 가새",
+        icon: "❌",
+        asset: "assets/seismic_defense_assets/02_device_icons/x_brace.png",
+        cost: 90,
+        refund: 45,
+        effect: "좌우 흔들림 저항",
+        help: "아래층에 좌우 균형 있게 배치하면 효과가 커집니다."
+      },
+      wall: {
+        name: "전단벽",
+        icon: "🧱",
+        asset: "assets/seismic_defense_assets/02_device_icons/shear_wall.png",
+        cost: 130,
+        refund: 60,
+        effect: "수평력 저항",
+        help: "내부 칸에 위아래로 연속 배치하면 효과가 커집니다."
+      },
+      damper: {
+        name: "제진 장치",
+        icon: "🟣",
+        asset: "assets/seismic_defense_assets/02_device_icons/damper.png",
+        cost: 160,
+        refund: 70,
+        effect: "흔들림 에너지 감소",
+        help: "중층과 고층에 설치하면 흔들림 에너지를 잘 줄입니다."
+      },
+      isolator: {
+        name: "면진 장치",
+        icon: "🛞",
+        asset: "assets/seismic_defense_assets/02_device_icons/base_isolator.png",
+        cost: 240,
+        refund: 100,
+        effect: "지반 흔들림 전달 감소",
+        help: "기초에만 설치할 수 있고 연약 지반에서 특히 중요합니다."
+      },
+      tmd: {
+        name: "동조질량감쇠기",
+        icon: "⚖",
+        asset: "assets/seismic_defense_assets/02_device_icons/tuned_mass_damper.png",
+        cost: 220,
+        refund: 90,
+        effect: "고층 옥상 흔들림 감소",
+        help: "옥상에만 설치할 수 있고 높은 건물일수록 효과가 큽니다."
+      },
+      demolish: {
+        name: "철거 도구",
+        icon: "🔨",
+        asset: "assets/seismic_defense_assets/02_device_icons/demolition_hammer.png",
+        cost: 0,
+        refund: 0,
+        effect: "설치 부재 제거",
+        help: "이미 설치한 부재를 제거하고 비용 일부를 돌려받습니다."
+      }
+    };
+
+    // 선택 항목은 단순 수치가 아니라 설계 점수에 반영되는 조건으로 동작한다.
+    const OPTION_DATA = {
+      foundation: {
+        normal: { label: "일반 기초", cost: 0, safety: 0, softBonus: 0 },
+        deep: { label: "깊은 기초", cost: 120, safety: 8, softBonus: 12 },
+        mat: { label: "매트 기초", cost: 160, safety: 10, softBonus: 16 }
+      },
+      frame: {
+        column: { label: "일반 기둥", cost: 0, safety: 0, stability: 0 },
+        steel: { label: "철골 구조", cost: 80, safety: 6, stability: 8 },
+        rc: { label: "철근콘크리트", cost: 100, safety: 8, stability: 10 }
+      },
+      ground: {
+        hard: { label: "단단한 지반", risk: 0, budget: 950 },
+        normal: { label: "보통 지반", risk: 8, budget: 1000 },
+        soft: { label: "연약 지반", risk: 20, budget: 1100 }
+      }
+    };
+
+    // 미션은 배치형 활동에 맞게 예산, 층수, 지반, 장치 제한, 목표 점수를 함께 검사한다.
+    const MISSIONS = [
+      { id: "m1", tier: "입문", icon: "assets/seismic_defense_assets/08_stage_map/stage_beginner.png", title: "3층 훈련동에 X자 가새를 설치하고 약한 지진을 통과하라", budget: 650, floors: 3, targetTest: "weak", minSafety: 45 },
+      { id: "m2", tier: "입문", icon: "assets/seismic_defense_assets/08_stage_map/stage_beginner.png", title: "5층 병원에 하부층 보강을 넣고 중간 지진을 통과하라", budget: 900, floors: 5, targetTest: "medium", minSafety: 62 },
+      { id: "m3", tier: "중급", icon: "assets/seismic_defense_assets/08_stage_map/stage_intermediate.png", title: "예산 10억원 안에서 8층 건물을 강한 지진까지 버티게 하라", budget: 1000, floors: 8, ground: "normal", targetTest: "strong" },
+      { id: "m4", tier: "중급", icon: "assets/seismic_defense_assets/08_stage_map/stage_boss_final.png", title: "연약 지반에 5층 병원을 안전하게 설계하라", budget: 1100, floors: 5, ground: "soft", minSafety: 76 },
+      { id: "m5", tier: "고급", icon: "assets/seismic_defense_assets/08_stage_map/stage_advanced.png", title: "동조질량감쇠기로 12층 건물의 흔들림을 줄여 강진 통과", budget: 1300, floors: 12, targetTest: "strong", requireTmd: true },
+      { id: "m6", tier: "고급", icon: "assets/seismic_defense_assets/08_stage_map/stage_current_highlight.png", title: "전단벽 연속 배치와 A등급 이상을 동시에 달성하라", budget: 1050, floors: 8, minGrade: "A", requireWallContinuity: true }
+    ];
+
+    const TITLES = [
+      { title: "초보 시공자", minScore: 0 },
+      { title: "안전 설계자", minScore: 60 },
+      { title: "균형 설계자", minScore: 74 },
+      { title: "내진 마스터", minScore: 88 }
+    ];
+
+    // 지진 테스트 뒤 무작위로 등장하는 퀴즈. 정답 시 안전도 보너스를 부여한다.
+    const QUIZZES = [
+      {
+        q: "X자 가새의 주된 역할은 무엇인가?",
+        choices: ["건물 색을 예쁘게 만들기", "좌우 흔들림에 저항하기", "건물 높이를 높이기"],
+        answer: 1
+      },
+      {
+        q: "면진 장치는 주로 어디에 설치하는가?",
+        choices: ["옥상", "기초 부분", "창문"],
+        answer: 1
+      },
+      {
+        q: "동조질량감쇠기의 역할은 무엇인가?",
+        choices: ["건물의 흔들림을 줄인다", "지진을 없앤다", "건물 색을 바꾼다"],
+        answer: 0
+      }
+    ];
+
+    const BADGES = [
+      { id: "first", label: "🏗 첫 시공자", desc: "처음으로 부재 설치", asset: "assets/seismic_defense_assets/07_badges/first_builder.png" },
+      { id: "wallLine", label: "🧱 구조 이해자", desc: "전단벽을 연속으로 배치", asset: "assets/seismic_defense_assets/07_badges/structure_understanding.png" },
+      { id: "braceMaster", label: "❌ 가새 마스터", desc: "X자 가새를 좌우 균형 있게 배치", asset: "assets/seismic_defense_assets/07_badges/brace_master.png" },
+      { id: "tower", label: "🏢 고층 안정화", desc: "8층 이상 건물에서 강한 지진 통과", asset: "assets/seismic_defense_assets/07_badges/highrise_stabilization.png" },
+      { id: "balance", label: "⚖ 균형 설계자", desc: "비틀림 위험 낮음 달성", asset: "assets/seismic_defense_assets/07_badges/balanced_designer.png" },
+      { id: "shake", label: "🌀 흔들림 제어자", desc: "동조질량감쇠기 활용 성공", asset: "assets/seismic_defense_assets/07_badges/vibration_controller.png" },
+      { id: "master", label: "🧠 내진 마스터", desc: "S등급 달성", asset: "assets/seismic_defense_assets/07_badges/seismic_master.png" }
+    ];
+
+    const TESTS = {
+      weak: { label: "약한 지진", demand: 45, intensity: 1 },
+      medium: { label: "중간 지진", demand: 62, intensity: 2 },
+      strong: { label: "강한 지진", demand: 74, intensity: 3 }
+    };
+
+    const state = {
+      selectedTool: "brace",
+      foundation: "normal",
+      frame: "steel",
+      floors: 3,
+      ground: "normal",
+      missionId: "m1",
+      installations: {},
+      passedTests: {},
+      earnedBadges: {},
+      completedMissions: {},
+      quizBonus: 0,
+      lastScore: 0,
+      lastGrade: "D",
+      lastCauses: [],
+      flashKey: "",
+      lastTestType: "",
+      lastTestPass: false
+    };
+
+    const els = {
+      toolbox: document.getElementById("toolbox"),
+      roofZone: document.getElementById("roofZone"),
+      buildingGrid: document.getElementById("buildingGrid"),
+      buildingWrap: document.getElementById("buildingWrap"),
+      foundationRow: document.getElementById("foundationRow"),
+      siteBase: document.getElementById("siteBase"),
+      leftBudgetBox: document.getElementById("leftBudgetBox"),
+      budgetNote: document.getElementById("budgetNote"),
+      notice: document.getElementById("notice"),
+      noticeDock: document.getElementById("noticeDock"),
+      waves: document.getElementById("waves"),
+      stamp: document.getElementById("testStamp"),
+      workerSpeech: document.getElementById("workerSpeech"),
+      missionList: document.getElementById("missionList"),
+      stageList: document.getElementById("stageList"),
+      badgeList: document.getElementById("badgeList"),
+      badgeToast: document.getElementById("badgeToast"),
+      rankTitle: document.getElementById("rankTitle"),
+      controlMetrics: document.getElementById("controlMetrics"),
+      guardFace: document.getElementById("guardFace"),
+      mayorFace: document.getElementById("mayorFace"),
+      residentFace: document.getElementById("residentFace"),
+      guardAdvice: document.getElementById("guardAdvice"),
+      mayorAdvice: document.getElementById("mayorAdvice"),
+      residentAdvice: document.getElementById("residentAdvice"),
+      failCoach: document.getElementById("failCoach"),
+      finalModal: document.getElementById("finalModal"),
+      finalContent: document.getElementById("finalContent"),
+      quizModal: document.getElementById("quizModal"),
+      quizQuestion: document.getElementById("quizQuestion"),
+      quizOptions: document.getElementById("quizOptions")
+    };
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, Math.round(value)));
+    }
+
+    function formatMoney(units) {
+      const value = Math.round(units);
+      const sign = value < 0 ? "-" : "";
+      const abs = Math.abs(value);
+      const eok = Math.floor(abs / 100);
+      const remain = abs % 100;
+      const cheon = Math.floor(remain / 10);
+      const baek = remain % 10;
+      const remainText = [
+        cheon ? `${cheon}천` : "",
+        baek ? `${baek}백` : ""
+      ].join("");
+      if (abs === 0) return "0원";
+      if (eok && remainText) return `${sign}${eok}억 ${remainText}만원`;
+      if (eok) return `${sign}${eok}억원`;
+      return `${sign}${remainText}만원`;
+    }
+
+    function keyOf(zone, floor, col) {
+      return `${zone}-${floor}-${col}`;
+    }
+
+    function currentMission() {
+      return MISSIONS.find(m => m.id === state.missionId) || MISSIONS[0];
+    }
+
+    function deviceCounts() {
+      const counts = { brace: 0, wall: 0, damper: 0, isolator: 0, tmd: 0 };
+      Object.values(state.installations).forEach(device => {
+        if (counts[device] !== undefined) counts[device] += 1;
+      });
+      return counts;
+    }
+
+    function getBestRecord() {
+      return {
+        score: Number(localStorage.getItem("seismicBestScore") || 0),
+        grade: localStorage.getItem("seismicBestGrade") || "-"
+      };
+    }
+
+    function setBestRecord(score, grade) {
+      const best = getBestRecord();
+      if (score > best.score) {
+        localStorage.setItem("seismicBestScore", String(score));
+        localStorage.setItem("seismicBestGrade", grade);
+      }
+    }
+
+    function buildToolbox() {
+      els.toolbox.innerHTML = "";
+      Object.entries(DEVICES).forEach(([id, data]) => {
+        const btn = document.createElement("button");
+        btn.className = `pixel-btn tool-btn ${state.selectedTool === id ? "active" : ""}`;
+        btn.dataset.tool = id;
+        btn.innerHTML = `<img class="asset-icon" src="${data.asset}" alt=""><span>${data.name}</span><small>${data.cost ? formatMoney(data.cost) : "제거"}</small>`;
+        btn.addEventListener("click", () => {
+          state.selectedTool = id;
+          showNotice(`${data.name} 선택: ${data.help}`);
+          renderAll();
+        });
+        els.toolbox.appendChild(btn);
+      });
+    }
+
+    function buildMissions() {
+      els.missionList.innerHTML = "";
+      updateMissionProgress(calculateMetrics());
+      MISSIONS.forEach((mission, index) => {
+        const locked = !isMissionUnlocked(index);
+        const complete = Boolean(state.completedMissions[mission.id]);
+        const item = document.createElement("button");
+        item.className = `mission-card ${mission.id === state.missionId ? "active" : ""} ${complete ? "done" : ""} ${locked ? "locked" : ""}`;
+        item.textContent = `${locked ? "🔒 " : complete ? "✅ " : ""}${mission.tier} · ${mission.title}`;
+        item.addEventListener("click", () => {
+          if (locked) {
+            showNotice("이전 스테이지를 먼저 완료하면 열립니다.");
+            return;
+          }
+          state.missionId = mission.id;
+          applyMissionPreset(mission);
+          showNotice(`미션 선택: ${mission.title}`);
+          renderAll();
+        });
+        els.missionList.appendChild(item);
+      });
+    }
+
+    function buildStageList() {
+      els.stageList.innerHTML = "";
+      MISSIONS.forEach((mission, index) => {
+        const locked = !isMissionUnlocked(index);
+        const done = Boolean(state.completedMissions[mission.id]);
+        const btn = document.createElement("button");
+        btn.className = `stage-card ${mission.id === state.missionId ? "active" : ""} ${done ? "done" : ""} ${locked ? "locked" : ""}`;
+        btn.innerHTML = `<div><img class="asset-icon" src="${mission.icon}" alt=""> ${locked ? "🔒" : done ? "✅" : "🎮"} ${mission.tier} 스테이지 ${index + 1}</div><small>${mission.title}</small>`;
+        btn.addEventListener("click", () => {
+          if (locked) {
+            showNotice("잠긴 스테이지입니다. 앞 미션을 클리어해보세요.");
+            return;
+          }
+          state.missionId = mission.id;
+          applyMissionPreset(mission);
+          renderAll();
+        });
+        els.stageList.appendChild(btn);
+      });
+    }
+
+    function isMissionUnlocked(index) {
+      if (index === 0) return true;
+      return Boolean(state.completedMissions[MISSIONS[index - 1].id]);
+    }
+
+    function updateMissionProgress(metrics) {
+      MISSIONS.forEach((mission, index) => {
+        if (isMissionUnlocked(index) && isMissionComplete(mission, metrics).complete) {
+          state.completedMissions[mission.id] = true;
+        }
+      });
+    }
+
+    function applyMissionPreset(mission) {
+      if (mission.floors) state.floors = mission.floors;
+      if (mission.ground) state.ground = mission.ground;
+      state.installations = {};
+      state.passedTests = {};
+      state.quizBonus = 0;
+      syncChoiceButtons();
+    }
+
+    function syncChoiceButtons() {
+      document.querySelectorAll("[data-choice]").forEach(group => {
+        const field = group.dataset.choice;
+        group.querySelectorAll("button").forEach(btn => {
+          btn.classList.toggle("active", String(state[field]) === String(btn.dataset.value));
+          btn.dataset.selected = String(state[field]) === String(btn.dataset.value) ? "true" : "false";
+          btn.setAttribute("aria-pressed", btn.dataset.selected);
+        });
+      });
+    }
+
+    function buildBadges() {
+      els.badgeList.innerHTML = "";
+      BADGES.forEach(badge => {
+        const div = document.createElement("div");
+        div.className = `badge-card ${state.earnedBadges[badge.id] ? "earned" : ""}`;
+        div.innerHTML = `<img src="${badge.asset}" alt=""><span>${badge.label}: ${badge.desc}</span>`;
+        els.badgeList.appendChild(div);
+      });
+    }
+
+    function buildBuilding() {
+      const cellSize = state.floors >= 12 ? 54 : state.floors >= 8 ? 62 : 70;
+      const cellHeight = state.floors >= 12 ? 31 : state.floors >= 8 ? 42 : 56;
+      document.documentElement.style.setProperty("--cell-size", `${cellSize}px`);
+      document.documentElement.style.setProperty("--cell-height", `${cellHeight}px`);
+
+      els.roofZone.innerHTML = "";
+      els.buildingGrid.innerHTML = "";
+      els.foundationRow.innerHTML = "";
+      els.foundationRow.className = `foundation-row foundation-${state.foundation}`;
+      els.buildingGrid.className = `building-grid frame-${state.frame}`;
+      els.siteBase.className = `site-base foundation-${state.foundation} ground-${state.ground}`;
+
+      for (let col = 0; col < 4; col += 1) {
+        els.roofZone.appendChild(makeCell("roof", state.floors + 1, col));
+      }
+
+      for (let floor = state.floors; floor >= 1; floor -= 1) {
+        for (let col = 0; col < 4; col += 1) {
+          const cell = makeCell("building", floor, col);
+          if (col === 3) {
+            const label = document.createElement("span");
+            label.className = "floor-label";
+            label.textContent = floor;
+            cell.appendChild(label);
+          }
+          els.buildingGrid.appendChild(cell);
+        }
+      }
+
+      for (let col = 0; col < 4; col += 1) {
+        els.foundationRow.appendChild(makeCell("foundation", 0, col));
+      }
+    }
+
+    function makeCell(zone, floor, col) {
+      const cell = document.createElement("button");
+      const key = keyOf(zone, floor, col);
+      cell.className = `cell ${zone}`;
+      cell.dataset.zone = zone;
+      cell.dataset.floor = floor;
+      cell.dataset.col = col;
+      cell.dataset.key = key;
+      cell.setAttribute("aria-label", `${zone} ${floor}층 ${col + 1}칸`);
+      cell.addEventListener("click", () => handleCellClick(zone, floor, col));
+
+      const device = state.installations[key];
+      if (device) {
+        cell.classList.add("has-device");
+        const deviceEl = document.createElement("span");
+        deviceEl.className = `device ${device} with-asset`;
+        deviceEl.title = DEVICES[device].name;
+        const img = document.createElement("img");
+        img.className = "device-img";
+        img.src = DEVICES[device].asset;
+        img.alt = DEVICES[device].name;
+        deviceEl.appendChild(img);
+        cell.appendChild(deviceEl);
+      }
+      if (state.flashKey === key) {
+        cell.classList.add("install-flash");
+        const spark = document.createElement("span");
+        spark.className = "spark";
+        cell.appendChild(spark);
+      }
+      return cell;
+    }
+
+    function handleCellClick(zone, floor, col) {
+      const key = keyOf(zone, floor, col);
+      const existing = state.installations[key];
+
+      if (state.selectedTool === "demolish" || existing) {
+        if (!existing) {
+          showNotice("철거할 부재가 없습니다.");
+          return;
+        }
+        delete state.installations[key];
+        showNotice(`${DEVICES[existing].name} 제거: ${formatMoney(DEVICES[existing].refund)} 환급으로 계산됩니다.`);
+        renderAll();
+        return;
+      }
+
+      const validation = canInstall(state.selectedTool, zone, floor, col);
+      if (!validation.ok) {
+        showNotice(validation.message);
+        return;
+      }
+
+      state.installations[key] = state.selectedTool;
+      state.flashKey = key;
+      if (state.selectedTool === "tmd") {
+        showNotice("동조질량감쇠기는 건물의 흔들림을 줄이는 장치입니다.");
+      } else {
+        showNotice(`${DEVICES[state.selectedTool].name} 설치 완료!`);
+      }
+      awardBadge("first");
+      renderAll();
+      setTimeout(() => {
+        state.flashKey = "";
+        const cell = document.querySelector(`[data-key="${key}"]`);
+        if (cell) {
+          cell.classList.remove("install-flash");
+          const spark = cell.querySelector(".spark");
+          if (spark) spark.remove();
+        }
+      }, 850);
+    }
+
+    function canInstall(tool, zone, floor, col) {
+      if (tool === "brace") {
+        return zone === "building"
+          ? { ok: true }
+          : { ok: false, message: "X자 가새는 건물 일반 칸에 설치해야 합니다." };
+      }
+      if (tool === "wall") {
+        return zone === "building" && (col === 1 || col === 2)
+          ? { ok: true }
+          : { ok: false, message: "전단벽은 건물 내부 칸에 설치해야 합니다." };
+      }
+      if (tool === "damper") {
+        return zone === "building" && (col === 1 || col === 2)
+          ? { ok: true }
+          : { ok: false, message: "제진 장치는 건물 내부 칸에 설치하면 효과가 큽니다." };
+      }
+      if (tool === "isolator") {
+        return zone === "foundation"
+          ? { ok: true }
+          : { ok: false, message: "면진 장치는 기초에 설치해야 합니다." };
+      }
+      if (tool === "tmd") {
+        const hasTmd = Object.values(state.installations).includes("tmd");
+        if (hasTmd) return { ok: false, message: "동조질량감쇠기는 한 개만 설치할 수 있습니다." };
+        return zone === "roof"
+          ? { ok: true }
+          : { ok: false, message: "동조질량감쇠기는 옥상에만 설치할 수 있습니다." };
+      }
+      return { ok: false, message: "도구를 선택해 주세요." };
+    }
+
+    function calculateMetrics() {
+      const counts = deviceCounts();
+      const baseBudget = currentMission().budget || OPTION_DATA.ground[state.ground].budget;
+      const optionCost = OPTION_DATA.foundation[state.foundation].cost + OPTION_DATA.frame[state.frame].cost;
+      const deviceCost = Object.values(state.installations).reduce((sum, device) => sum + DEVICES[device].cost, 0);
+      const spent = optionCost + deviceCost;
+      const heightRisk = { 3: 4, 5: 9, 8: 17, 12: 29 }[state.floors];
+      const groundRisk = OPTION_DATA.ground[state.ground].risk;
+
+      let braceEffect = 0;
+      let lowerScore = 0;
+      let leftBrace = 0;
+      let rightBrace = 0;
+      let wallEffect = 0;
+      let damperEffect = 0;
+      let isolatorEffect = 0;
+      let tmdEffect = 0;
+      const wallFloorsByCol = { 1: [], 2: [] };
+      let lowerInstalled = 0;
+
+      Object.entries(state.installations).forEach(([key, device]) => {
+        const [zone, floorText, colText] = key.split("-");
+        const floor = Number(floorText);
+        const col = Number(colText);
+
+        if (device === "brace") {
+          const lowFactor = (state.floors - floor + 1) / state.floors;
+          braceEffect += 5 + lowFactor * 6;
+          if (floor <= Math.min(2, state.floors)) {
+            lowerScore += 13;
+            lowerInstalled += 1;
+          }
+          if (col <= 1) leftBrace += 1;
+          else rightBrace += 1;
+        }
+
+        if (device === "wall") {
+          wallEffect += 7;
+          if (col === 1 || col === 2) wallFloorsByCol[col].push(floor);
+          if (floor <= Math.min(2, state.floors)) {
+            lowerScore += 11;
+            lowerInstalled += 1;
+          }
+        }
+
+        if (device === "damper") {
+          const midHigh = floor >= Math.ceil(state.floors * 0.45);
+          const highBoost = state.floors >= 8 && floor >= Math.ceil(state.floors * 0.65);
+          damperEffect += midHigh ? 11 : 6;
+          if (highBoost) damperEffect += 5;
+        }
+
+        if (device === "isolator") {
+          isolatorEffect += state.ground === "soft" ? 16 : state.ground === "normal" ? 12 : 8;
+        }
+
+        if (device === "tmd") {
+          tmdEffect += state.floors === 3 ? 7 : state.floors === 5 ? 12 : state.floors === 8 ? 20 : 29;
+        }
+      });
+
+      let wallContinuity = 0;
+      Object.values(wallFloorsByCol).forEach(floors => {
+        const sorted = floors.sort((a, b) => a - b);
+        let chain = 1;
+        for (let i = 1; i < sorted.length; i += 1) {
+          if (sorted[i] === sorted[i - 1] + 1) {
+            chain += 1;
+            wallContinuity += 7 + chain;
+          } else {
+            chain = 1;
+          }
+        }
+      });
+
+      const leftTotal = countSide("left");
+      const rightTotal = countSide("right");
+      const sideDiff = Math.abs(leftTotal - rightTotal);
+      const totalSide = Math.max(1, leftTotal + rightTotal);
+      const balanceScore = clamp(100 - (sideDiff / totalSide) * 80, 0, 100);
+      const torsionRisk = clamp(100 - balanceScore + Math.max(0, sideDiff - 2) * 12, 0, 100);
+
+      const lowerReinforcement = clamp(lowerScore + counts.isolator * 13 + OPTION_DATA.foundation[state.foundation].softBonus, 0, 100);
+      const shakeReductionRaw = braceEffect * 0.55 + wallEffect * 0.5 + wallContinuity * 0.55 + damperEffect + isolatorEffect + tmdEffect;
+      const shakeReduction = clamp(shakeReductionRaw - heightRisk * 0.35 - groundRisk * 0.25, 0, 95);
+
+      const overBudget = Math.max(0, spent - baseBudget);
+      const tooManyDevices = Math.max(0, Object.keys(state.installations).length - Math.ceil(state.floors * 1.15));
+      const wallCrowding = Math.max(0, counts.wall - Math.ceil(state.floors * 0.55));
+      const satisfaction = clamp(100 - tooManyDevices * 5 - wallCrowding * 8 - Math.floor(overBudget / 40), 20, 100);
+
+      const foundationBonus = OPTION_DATA.foundation[state.foundation].safety + (state.ground === "soft" ? OPTION_DATA.foundation[state.foundation].softBonus : 0);
+      const frameBonus = OPTION_DATA.frame[state.frame].safety + OPTION_DATA.frame[state.frame].stability;
+      const budgetPenalty = Math.floor(overBudget / 22);
+      const softFailurePenalty = state.ground === "soft" && counts.isolator < 2 && state.foundation === "normal" ? 18 : 0;
+      const lowFloorPenalty = TESTS.strong && lowerReinforcement < 38 ? 11 : 0;
+
+      const safety = clamp(35 + foundationBonus + OPTION_DATA.frame[state.frame].safety + braceEffect * 0.35 + wallEffect * 0.28 + isolatorEffect * 0.5 + damperEffect * 0.28 + tmdEffect * 0.2 + state.quizBonus - heightRisk - groundRisk - budgetPenalty - softFailurePenalty, 0, 100);
+      const stability = clamp(30 + frameBonus + lowerReinforcement * 0.25 + wallContinuity * 0.45 + balanceScore * 0.22 + shakeReduction * 0.26 - torsionRisk * 0.18 - heightRisk * 0.35 - lowFloorPenalty, 0, 100);
+      const budgetEfficiency = clamp((safety + stability + shakeReduction) / 3 - (spent / baseBudget) * 14 + (spent <= baseBudget ? 15 : -18), 0, 100);
+      const totalScore = clamp(safety * 0.32 + stability * 0.28 + shakeReduction * 0.2 + satisfaction * 0.12 + budgetEfficiency * 0.08 - (torsionRisk * 0.08), 0, 100);
+      const grade = gradeFromScore(totalScore);
+
+      return {
+        counts,
+        spent,
+        budget: baseBudget,
+        left: baseBudget - spent,
+        safety,
+        stability,
+        shakeReduction,
+        satisfaction,
+        balanceScore,
+        lowerReinforcement,
+        torsionRisk,
+        budgetEfficiency,
+        totalScore,
+        grade,
+        wallContinuity,
+        lowerInstalled,
+        overBudget,
+        tmdEffect,
+        isolatorEffect
+      };
+    }
+
+    function countSide(side) {
+      let count = 0;
+      Object.entries(state.installations).forEach(([key, device]) => {
+        if (!["brace", "wall", "damper"].includes(device)) return;
+        const col = Number(key.split("-")[2]);
+        if (side === "left" && col <= 1) count += 1;
+        if (side === "right" && col >= 2) count += 1;
+      });
+      return count;
+    }
+
+    function gradeFromScore(score) {
+      if (score >= 92) return "S";
+      if (score >= 82) return "A";
+      if (score >= 70) return "B";
+      if (score >= 55) return "C";
+      return "D";
+    }
+
+    function gradeRank(grade) {
+      return { D: 1, C: 2, B: 3, A: 4, S: 5 }[grade] || 0;
+    }
+
+    function renderStatus(metrics) {
+      updateMissionProgress(metrics);
+      document.getElementById("currentMissionText").textContent = currentMission().title;
+      document.getElementById("spentBudget").textContent = formatMoney(metrics.spent);
+      document.getElementById("leftBudget").textContent = formatMoney(metrics.left);
+      document.getElementById("totalBudget").textContent = formatMoney(metrics.budget);
+      els.leftBudgetBox.classList.toggle("over", metrics.left < 0);
+      els.budgetNote.textContent = `총예산 ${formatMoney(metrics.budget)} · 사용 ${formatMoney(metrics.spent)} · 남은 ${formatMoney(metrics.left)}`;
+      document.getElementById("safetyScore").textContent = metrics.safety;
+      document.getElementById("stabilityScore").textContent = metrics.stability;
+      document.getElementById("shakeReduction").textContent = `${metrics.shakeReduction}%`;
+      document.getElementById("satisfactionScore").textContent = metrics.satisfaction;
+      document.getElementById("expectedGrade").textContent = metrics.grade;
+      document.getElementById("bottomGrade").textContent = metrics.grade;
+      document.getElementById("bottomScore").textContent = metrics.totalScore;
+      const best = getBestRecord();
+      document.getElementById("bestGrade").textContent = best.grade;
+    }
+
+    function renderControlPanel(metrics) {
+      const title = currentTitle(metrics);
+      els.rankTitle.textContent = `${title} · ${Object.keys(state.earnedBadges).length}개 배지`;
+      els.controlMetrics.innerHTML = `
+        ${meterLine("⚖ 균형", metrics.balanceScore)}
+        ${meterLine("🏗 하부층", metrics.lowerReinforcement)}
+        ${meterLine("🌀 고층제어", metrics.shakeReduction)}
+        ${meterLine("↻ 비틀림", metrics.torsionRisk, true)}
+      `;
+      const recs = makeRecommendations(metrics);
+      els.guardAdvice.textContent = metrics.lowerReinforcement < 45
+        ? "안전요원: 1층과 2층에 먼저 보강을 넣어야 대피층이 버팁니다."
+        : "안전요원: 하부층 보강이 좋아요. 이제 좌우 균형을 확인해요.";
+      els.guardFace.src = metrics.lowerReinforcement < 45 || (!state.lastTestPass && state.lastCauses.length)
+        ? "assets/seismic_defense_assets/04_npcs/safety_worker_worried.png"
+        : "assets/seismic_defense_assets/04_npcs/safety_worker_happy.png";
+      els.mayorAdvice.textContent = metrics.overBudget > 0
+        ? "시장님: 예산 초과입니다. 효과가 낮은 장치를 철거해보세요."
+        : `시장님: 남은 예산 ${formatMoney(metrics.left)}. 핵심 위치에 집중 투자하세요.`;
+      els.mayorFace.src = metrics.overBudget > 0
+        ? "assets/seismic_defense_assets/04_npcs/mayor_worried.png"
+        : metrics.grade === "A" || metrics.grade === "S"
+          ? "assets/seismic_defense_assets/04_npcs/mayor_happy.png"
+          : "assets/seismic_defense_assets/04_npcs/mayor_neutral.png";
+      els.residentAdvice.textContent = metrics.satisfaction < 68
+        ? "주민: 벽이 너무 많거나 장치가 과해요. 생활 공간도 지켜주세요."
+        : "주민: 안전하면서도 생활하기 괜찮은 설계예요.";
+      els.residentFace.src = metrics.satisfaction < 68 || (!state.lastTestPass && state.lastCauses.length)
+        ? "assets/seismic_defense_assets/04_npcs/resident_worried.png"
+        : metrics.satisfaction > 82
+          ? "assets/seismic_defense_assets/04_npcs/resident_happy.png"
+          : "assets/seismic_defense_assets/04_npcs/resident_neutral.png";
+      els.failCoach.innerHTML = state.lastCauses.length
+        ? `최근 결과: ${state.lastTestPass ? "✅ 통과" : "⚠ 보강 필요"}<br>${state.lastCauses[0]}<br>추천: ${recs[0]}`
+        : `첫 도전 추천: ${recs[0]}`;
+    }
+
+    function meterLine(label, value, risk = false) {
+      const shown = risk ? value : clamp(value, 0, 100);
+      return `
+        <div class="meter-line ${risk ? "risk" : ""}">
+          <span>${label}</span>
+          <div class="meter-track"><span class="meter-fill" style="width:${clamp(value, 0, 100)}%"></span></div>
+          <b>${shown}</b>
+        </div>
+      `;
+    }
+
+    function currentTitle(metrics) {
+      if (metrics.grade === "S" || metrics.totalScore >= 88) return "내진 마스터";
+      if (metrics.torsionRisk <= 20 && Object.keys(state.installations).length >= 4) return "균형 설계자";
+      if (metrics.safety >= 70 || state.passedTests.medium || state.passedTests.strong) return "안전 설계자";
+      return "초보 시공자";
+    }
+
+    function metricLine(label, value, hint = "") {
+      return `
+        <div>${label}: <b>${value}${hint ? "" : "점"}</b> ${hint}</div>
+        <div class="bar"><span style="width:${clamp(value, 0, 100)}%"></span></div>
+      `;
+    }
+
+    function makeRecommendations(metrics) {
+      const recs = [];
+      if (metrics.lowerReinforcement < 45) recs.push("1층과 2층에 X자 가새를 추가해보세요.");
+      if (metrics.wallContinuity < 10 && metrics.counts.wall > 0) recs.push("전단벽을 위아래로 연속 배치하면 효과가 커집니다.");
+      if (state.floors >= 8 && metrics.counts.tmd === 0) recs.push("고층 건물은 옥상에 동조질량감쇠기를 설치하면 흔들림을 줄일 수 있습니다.");
+      if (state.ground === "soft" && metrics.counts.isolator < 2 && state.foundation === "normal") recs.push("연약 지반에서는 면진 장치나 깊은 기초가 필요합니다.");
+      if (metrics.torsionRisk > 28) {
+        const left = countSide("left");
+        const right = countSide("right");
+        recs.push(left > right ? "왼쪽에만 보강되어 있으니 오른쪽에도 보강해보세요." : "오른쪽에만 보강되어 있으니 왼쪽에도 보강해보세요.");
+      }
+      if (metrics.overBudget > 0) recs.push("예산을 초과했습니다. 효과가 낮은 장치를 철거해보세요.");
+      if (metrics.counts.damper === 0 && state.floors >= 5) recs.push("중층과 고층에는 제진 장치를 넣으면 흔들림 에너지가 줄어듭니다.");
+      if (!recs.length) recs.push("현재 설계가 균형적입니다. 지진 테스트로 검증해보세요.");
+      return recs.slice(0, 5);
+    }
+
+    function evaluateTest(type, metrics) {
+      const test = TESTS[type];
+      const balancedPlan = metrics.torsionRisk <= 30 && metrics.lowerReinforcement >= 42;
+      const hasLateralSystem = metrics.counts.brace >= 3 || metrics.wallContinuity >= 10;
+      const hasEnergyControl = metrics.counts.damper >= 1 || metrics.counts.tmd >= 1;
+      const hasFoundationPlan = state.foundation !== "normal" || metrics.counts.isolator >= 1;
+      const codeDesignBonus =
+        (balancedPlan ? 6 : 0) +
+        (hasLateralSystem ? 5 : 0) +
+        (hasEnergyControl && state.floors >= 8 ? 5 : 0) +
+        (hasFoundationPlan ? 4 : 0);
+
+      let capacity =
+        metrics.safety * 0.42 +
+        metrics.stability * 0.34 +
+        metrics.shakeReduction * 0.16 +
+        metrics.lowerReinforcement * 0.1 +
+        codeDesignBonus;
+      capacity -= metrics.torsionRisk * 0.12;
+      capacity -= metrics.overBudget > 0 ? 4 + metrics.overBudget / 120 : 0;
+      if (type === "strong") {
+        if (metrics.lowerReinforcement < 35) capacity -= 10;
+        if (state.ground === "soft" && metrics.counts.isolator < 1 && state.foundation === "normal") capacity -= 14;
+        if (state.floors >= 8 && !hasEnergyControl) capacity -= 8;
+        if (balancedPlan && hasLateralSystem && hasFoundationPlan) capacity += 7;
+      }
+      if (type === "medium" && metrics.lowerReinforcement < 25) capacity -= 5;
+
+      const pass = capacity >= test.demand;
+      const causes = [];
+      if (metrics.lowerReinforcement < 35 && type !== "weak") causes.push("1~2층 보강이 부족하여 하부층 변형이 큽니다.");
+      if (metrics.torsionRisk > 32) causes.push("가새가 한쪽에 몰려 있어 비틀림 위험이 있습니다.");
+      if (state.ground === "soft" && metrics.counts.isolator < 1 && state.foundation === "normal") causes.push("연약 지반인데 기초 보강이 부족합니다.");
+      if (state.floors >= 8 && !hasEnergyControl) causes.push("고층 건물인데 옥상 흔들림을 줄이는 장치가 부족합니다.");
+      if (metrics.counts.wall > 0 && metrics.wallContinuity < 8) causes.push("전단벽이 연속적으로 배치되지 않아 효과가 낮습니다.");
+      if (metrics.overBudget > 0) causes.push("예산 초과로 최종 점수가 감점됩니다.");
+      if (!causes.length && !pass) causes.push("전체 보강량이 지진 요구 수준보다 부족합니다.");
+      if (!causes.length && pass) causes.push("하중 경로와 흔들림 제어가 균형 있게 작동했습니다.");
+      return { pass, capacity: clamp(capacity, 0, 100), causes };
+    }
+
+    function runTest(type) {
+      const metrics = calculateMetrics();
+      const result = evaluateTest(type, metrics);
+      state.lastCauses = result.causes;
+      state.lastTestType = type;
+      state.lastTestPass = result.pass;
+      state.passedTests[type] = result.pass;
+      checkBadges(metrics, type, result.pass);
+      renderAll();
+
+      const className = type === "weak" ? "shake-weak" : type === "medium" ? "shake-medium" : "shake-strong";
+      const duration = type === "strong" ? 2600 : type === "medium" ? 2200 : 1600;
+      els.buildingGrid.classList.remove("shake-weak", "shake-medium", "shake-strong");
+      els.buildingWrap.classList.remove("shake-weak", "shake-medium", "shake-strong");
+      document.querySelector(".scene").classList.remove("scene-quake-weak", "scene-quake-medium", "scene-quake-strong");
+      void els.buildingGrid.offsetWidth;
+      els.buildingGrid.classList.add(className);
+      els.buildingWrap.classList.add(className);
+      document.querySelector(".scene").classList.add(`scene-quake-${type}`);
+      els.waves.className = `waves active ${type}`;
+      showStamp(result.pass, result.pass ? `✅ ${TESTS[type].label} 통과!` : `⚠ ${TESTS[type].label} 보강 필요`);
+
+      clearCracks();
+      if (!result.pass) makeCracks(metrics);
+      setTimeout(() => {
+        els.waves.className = "waves";
+        els.buildingGrid.classList.remove(className);
+        els.buildingWrap.classList.remove(className);
+        document.querySelector(".scene").classList.remove(`scene-quake-${type}`);
+      }, duration);
+
+      showNotice(result.causes[0]);
+      if (result.pass) makeConfetti();
+    }
+
+    function makeCracks(metrics) {
+      const crackTargets = [];
+      if (metrics.lowerReinforcement < 45) {
+        crackTargets.push(keyOf("building", 1, 0), keyOf("building", Math.min(2, state.floors), 3));
+      }
+      if (metrics.torsionRisk > 32) {
+        const weakSideCol = countSide("left") > countSide("right") ? 3 : 0;
+        crackTargets.push(keyOf("building", Math.ceil(state.floors / 2), weakSideCol));
+        const twistCell = document.querySelector(`[data-key="${keyOf("building", Math.ceil(state.floors * 0.72), weakSideCol)}"]`);
+        if (twistCell) {
+          const twist = document.createElement("span");
+          twist.className = "twist-mark";
+          twistCell.appendChild(twist);
+        }
+      }
+      if (state.floors >= 8 && metrics.counts.tmd === 0) {
+        crackTargets.push(keyOf("building", state.floors, 2));
+      }
+      crackTargets.slice(0, 4).forEach(key => {
+        const cell = document.querySelector(`[data-key="${key}"]`);
+        if (!cell) return;
+        const crack = document.createElement("span");
+        crack.className = "crack";
+        cell.appendChild(crack);
+      });
+    }
+
+    function clearCracks() {
+      document.querySelectorAll(".crack").forEach(el => el.remove());
+      document.querySelectorAll(".twist-mark").forEach(el => el.remove());
+    }
+
+    function showStamp(pass, text) {
+      els.stamp.className = `test-stamp ${pass ? "pass" : "fail"} show`;
+      els.stamp.textContent = text;
+      setTimeout(() => {
+        els.stamp.classList.remove("show");
+      }, 1100);
+    }
+
+    function maybeQuiz(force = false) {
+      if (!force && Math.random() > 0.45) return;
+      const quiz = QUIZZES[Math.floor(Math.random() * QUIZZES.length)];
+      els.quizQuestion.textContent = `문제: ${quiz.q}`;
+      els.quizOptions.innerHTML = "";
+      quiz.choices.forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.className = "pixel-btn info";
+        btn.textContent = `${index + 1}. ${choice}`;
+        btn.addEventListener("click", () => {
+          if (index === quiz.answer) {
+            state.quizBonus += 4;
+            showNotice("정답! 안전도 보너스 +4를 얻었습니다.");
+            awardBadge("shake", Object.values(state.installations).includes("tmd"));
+          } else {
+            showNotice("아쉬워요. 다시 테스트하며 개념을 확인해보세요.");
+          }
+          els.quizModal.classList.remove("show");
+          renderAll();
+        });
+        els.quizOptions.appendChild(btn);
+      });
+      els.quizModal.classList.add("show");
+    }
+
+    function finalEvaluation() {
+      const metrics = calculateMetrics();
+      const mission = isMissionComplete(currentMission(), metrics);
+      setBestRecord(metrics.totalScore, metrics.grade);
+      checkBadges(metrics);
+
+      const strengths = [];
+      if (metrics.lowerReinforcement >= 60) strengths.push("하부층 보강이 좋아 강한 지진에서 변형을 줄일 수 있습니다.");
+      if (metrics.torsionRisk <= 22) strengths.push("좌우 보강 균형이 좋아 비틀림 위험이 낮습니다.");
+      if (metrics.wallContinuity >= 14) strengths.push("전단벽을 연속 배치하여 수평력 저항이 커졌습니다.");
+      if (metrics.counts.isolator > 0) strengths.push("면진 장치로 지반 흔들림 전달을 줄였습니다.");
+      if (metrics.counts.tmd > 0) strengths.push("동조질량감쇠기로 옥상 흔들림을 제어했습니다.");
+      if (!strengths.length) strengths.push("여러 장치를 직접 배치하며 내진설계의 위치 중요성을 확인했습니다.");
+
+      const improvements = makeRecommendations(metrics);
+      const passed = Object.entries(TESTS)
+        .filter(([id]) => state.passedTests[id])
+        .map(([, test]) => test.label)
+        .join(", ") || "아직 없음";
+
+      els.finalContent.innerHTML = `
+        <h2>📋 최종 평가: ${metrics.grade} 등급</h2>
+        <div class="modal-grid">
+          <div class="modal-stat">총점: ${metrics.totalScore}</div>
+          <div class="modal-stat">사용 예산: ${formatMoney(metrics.spent)} / ${formatMoney(metrics.budget)}</div>
+          <div class="modal-stat">안전도: ${metrics.safety}</div>
+          <div class="modal-stat">안정성: ${metrics.stability}</div>
+          <div class="modal-stat">흔들림 감소율: ${metrics.shakeReduction}%</div>
+          <div class="modal-stat">비틀림 위험: ${metrics.torsionRisk}</div>
+          <div class="modal-stat">통과한 테스트: ${passed}</div>
+          <div class="modal-stat">미션: ${mission.complete ? "성공" : "진행 중"}</div>
+        </div>
+        <p><b>잘한 점</b></p>
+        ${strengths.map(text => `<p>✅ ${text}</p>`).join("")}
+        <p><b>개선할 점</b></p>
+        ${improvements.map(text => `<p>💡 ${text}</p>`).join("")}
+        <p><b>내진설계 개념 설명</b></p>
+        <p>내진설계는 좋은 장치를 고르는 것뿐 아니라 적절한 위치에 배치하는 것이 중요합니다. X자 가새는 좌우 흔들림에 저항하고, 전단벽은 수평력을 견디며 연속 배치될수록 효과가 커집니다. 면진 장치는 기초에 설치해 지반 흔들림 전달을 줄이고, 제진 장치는 흔들림 에너지를 줄입니다. 동조질량감쇠기는 고층 건물의 옥상 흔들림을 줄이는 데 도움을 줍니다. 안전성, 경제성, 주민만족도의 균형을 맞추는 것이 좋은 설계입니다.</p>
+        <button class="pixel-btn gold" id="closeFinal">확인하고 퀴즈 풀기</button>
+      `;
+      els.finalModal.classList.add("show");
+      document.getElementById("closeFinal").addEventListener("click", () => {
+        els.finalModal.classList.remove("show");
+        maybeQuiz(true);
+        renderAll();
+      });
+      if (metrics.grade === "S") awardBadge("master");
+    }
+
+    function isMissionComplete(mission, metrics) {
+      const checks = [];
+      if (mission.floors) checks.push(state.floors === mission.floors);
+      if (mission.ground) checks.push(state.ground === mission.ground);
+      if (mission.targetTest) checks.push(Boolean(state.passedTests[mission.targetTest]));
+      if (mission.minSafety) checks.push(metrics.safety >= mission.minSafety);
+      if (mission.minStability) checks.push(metrics.stability >= mission.minStability);
+      if (mission.maxBrace !== undefined) checks.push(metrics.counts.brace <= mission.maxBrace);
+      if (mission.requireTmd) checks.push(metrics.counts.tmd >= 1);
+      if (mission.requireWallContinuity) checks.push(metrics.wallContinuity >= 14);
+      if (mission.minGrade) checks.push(gradeRank(metrics.grade) >= gradeRank(mission.minGrade));
+      checks.push(metrics.spent <= metrics.budget);
+      return { complete: checks.every(Boolean), checks };
+    }
+
+    function checkBadges(metrics, testType = "", pass = false) {
+      if (metrics.wallContinuity >= 14) awardBadge("wallLine");
+      if (metrics.counts.brace >= 2 && Math.abs(countSide("left") - countSide("right")) <= 1) awardBadge("braceMaster");
+      if (state.floors >= 8 && testType === "strong" && pass) awardBadge("tower");
+      if (metrics.torsionRisk <= 18 && Object.keys(state.installations).length >= 4) awardBadge("balance");
+      if (metrics.counts.tmd >= 1 && (state.passedTests.medium || state.passedTests.strong)) awardBadge("shake");
+      if (metrics.grade === "S") awardBadge("master");
+    }
+
+    function awardBadge(id, condition = true) {
+      if (!condition || state.earnedBadges[id]) return;
+      state.earnedBadges[id] = true;
+      const badge = BADGES.find(item => item.id === id);
+      if (badge) {
+        els.badgeToast.textContent = `${badge.label} 획득!`;
+        setTimeout(() => {
+          els.badgeToast.textContent = "👷 설계 배지를 모아보세요!";
+        }, 2400);
+      }
+    }
+
+    function makeConfetti() {
+      const colors = ["#ffd43b", "#58e25a", "#27d8ff", "#ff5d4f", "#b06cff"];
+      for (let i = 0; i < 22; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.animationDelay = `${Math.random() * 0.35}s`;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 2100);
+      }
+    }
+
+    function showNotice(text) {
+      if (els.noticeDock) {
+        els.noticeDock.textContent = text;
+        els.noticeDock.classList.remove("flash");
+        void els.noticeDock.offsetWidth;
+        els.noticeDock.classList.add("flash");
+      }
+      if (els.notice) {
+        els.notice.textContent = text;
+        els.notice.classList.remove("show");
+      }
+      if (els.workerSpeech) {
+        els.workerSpeech.textContent = text.length > 34 ? `${text.slice(0, 32)}...` : text;
+      }
+    }
+
+    function resetDesign() {
+      state.installations = {};
+      state.passedTests = {};
+      state.quizBonus = 0;
+      state.lastCauses = [];
+      state.lastTestType = "";
+      state.lastTestPass = false;
+      state.flashKey = "";
+      clearCracks();
+      showNotice("설계를 초기화했습니다. 다시 배치해보세요.");
+      renderAll();
+    }
+
+    function renderAll() {
+      const metrics = calculateMetrics();
+      state.lastScore = metrics.totalScore;
+      state.lastGrade = metrics.grade;
+      checkBadges(metrics);
+      buildToolbox();
+      buildBuilding();
+      buildBadges();
+      renderStatus(metrics);
+      buildMissions();
+      buildStageList();
+      renderControlPanel(metrics);
+      syncChoiceButtons();
+    }
+
+    document.querySelectorAll("[data-choice] button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const group = btn.closest("[data-choice]");
+        const field = group.dataset.choice;
+        const value = btn.dataset.value;
+        state[field] = field === "floors" ? Number(value) : value;
+        group.querySelectorAll("button").forEach(item => {
+          const selected = item === btn;
+          item.classList.toggle("active", selected);
+          item.dataset.selected = selected ? "true" : "false";
+          item.setAttribute("aria-pressed", String(selected));
+        });
+        if (field === "floors") {
+          state.installations = {};
+          showNotice("층수가 바뀌어 건물 격자를 새로 만들었습니다.");
+        } else if (field === "frame") {
+          showNotice(`${btn.textContent} 선택 완료: 건물 골조 그림이 바뀌었습니다.`);
+        } else if (field === "foundation") {
+          showNotice(`${btn.textContent} 선택 완료: 기초 그림이 바뀌었습니다.`);
+        } else if (field === "ground") {
+          showNotice(`${btn.textContent} 선택 완료: 지반 그림이 바뀌었습니다.`);
+        }
+        state.passedTests = {};
+        renderAll();
+      });
+    });
+
+    document.querySelectorAll("[data-test]").forEach(btn => {
+      btn.addEventListener("click", () => runTest(btn.dataset.test));
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", resetDesign);
+    document.getElementById("finalBtn").addEventListener("click", finalEvaluation);
+    els.finalModal.addEventListener("click", event => {
+      if (event.target === els.finalModal) {
+        els.finalModal.classList.remove("show");
+        maybeQuiz(true);
+      }
+    });
+    els.quizModal.addEventListener("click", event => {
+      if (event.target === els.quizModal) els.quizModal.classList.remove("show");
+    });
+
+    renderAll();
+    showNotice("왼쪽 도구함에서 내진 부재를 고른 뒤 건물 칸을 클릭하세요.");
+  </script>
+</body>
+</html>

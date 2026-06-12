@@ -1,0 +1,1801 @@
+[
+  {
+    "file": "01_building_tiles/plain_column.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      55,
+      35,
+      115,
+      280
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/x_brace_tile.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      210,
+      35,
+      240,
+      285
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/concrete_wall_tile.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      455,
+      40,
+      235,
+      285
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/window_tile.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      690,
+      40,
+      245,
+      285
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/cracked_wall_tile.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      935,
+      40,
+      240,
+      285
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/reinforced_wall_tile.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      1170,
+      40,
+      245,
+      285
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/roof_edge_tile.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      25,
+      335,
+      290,
+      210
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/rooftop_equipment_base.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      305,
+      330,
+      410,
+      235
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/base_isolation_foundation_long.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      710,
+      330,
+      710,
+      230
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/platform_hazard_gray.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      25,
+      570,
+      300,
+      220
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/platform_orange.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      300,
+      570,
+      310,
+      225
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/platform_wood.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      575,
+      570,
+      310,
+      225
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/platform_blue.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      845,
+      570,
+      310,
+      225
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/platform_green.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      1125,
+      570,
+      300,
+      225
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/floor_plain_concrete.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      20,
+      785,
+      260,
+      270
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/floor_light_grid.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      255,
+      785,
+      260,
+      270
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/floor_dark_grid.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      485,
+      785,
+      260,
+      270
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/floor_blue.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      715,
+      785,
+      245,
+      270
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/floor_green.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      940,
+      785,
+      245,
+      270
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "01_building_tiles/floor_soil.png",
+    "source_sheet": "건축_타일셋_픽셀_아트.png",
+    "crop_xywh": [
+      1160,
+      785,
+      260,
+      270
+    ],
+    "category": "01_building_tiles"
+  },
+  {
+    "file": "02_device_icons/x_brace.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      70,
+      70,
+      340,
+      360
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/shear_wall.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      445,
+      70,
+      350,
+      360
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/damper.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      825,
+      70,
+      360,
+      360
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/base_isolator.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      70,
+      500,
+      360,
+      310
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/tuned_mass_damper.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      445,
+      420,
+      360,
+      390
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/demolition_hammer.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      780,
+      420,
+      400,
+      390
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/crack.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      70,
+      800,
+      340,
+      360
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/warning_triangle.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      450,
+      820,
+      350,
+      340
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "02_device_icons/success_check.png",
+    "source_sheet": "픽셀_아트_아이콘_시트.png",
+    "crop_xywh": [
+      830,
+      820,
+      340,
+      340
+    ],
+    "category": "02_device_icons"
+  },
+  {
+    "file": "03_effects/weak_earthquake_wave.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      10,
+      110,
+      250,
+      230
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/medium_earthquake_wave.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      250,
+      80,
+      330,
+      260
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/strong_earthquake_wave.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      550,
+      60,
+      310,
+      280
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/dust_cloud_large.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      820,
+      90,
+      250,
+      260
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/dust_cloud_small.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      1050,
+      140,
+      190,
+      200
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/debris_rock_01.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      40,
+      395,
+      120,
+      120
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/debris_rock_02.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      200,
+      380,
+      130,
+      130
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/debris_rock_03.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      380,
+      360,
+      150,
+      150
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/debris_rock_04.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      550,
+      350,
+      160,
+      150
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/debris_rock_05.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      720,
+      370,
+      120,
+      130
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/debris_pebbles.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      850,
+      380,
+      360,
+      130
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/crack_tiny.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      20,
+      560,
+      190,
+      110
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/crack_small.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      230,
+      540,
+      280,
+      135
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/crack_medium.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      540,
+      540,
+      280,
+      150
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/impact_crater.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      870,
+      500,
+      360,
+      260
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/warning_yellow.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      300,
+      760,
+      260,
+      230
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/red_siren.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      560,
+      730,
+      240,
+      240
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/success_banner.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      40,
+      955,
+      560,
+      180
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "03_effects/reinforce_needed_banner.png",
+    "source_sheet": "게임_효과_아이콘_시트.png",
+    "crop_xywh": [
+      630,
+      950,
+      580,
+      190
+    ],
+    "category": "03_effects"
+  },
+  {
+    "file": "04_npcs/safety_worker_neutral.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      110,
+      10,
+      300,
+      410
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/safety_worker_happy.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      460,
+      10,
+      360,
+      410
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/safety_worker_worried.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      840,
+      10,
+      310,
+      410
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/mayor_neutral.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      110,
+      400,
+      300,
+      420
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/mayor_happy.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      470,
+      400,
+      360,
+      420
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/mayor_worried.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      840,
+      400,
+      310,
+      420
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/resident_neutral.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      110,
+      800,
+      320,
+      430
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/resident_happy.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      470,
+      800,
+      330,
+      430
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "04_npcs/resident_worried.png",
+    "source_sheet": "픽셀_아트_캐릭터_스프라이트_시트.png",
+    "crop_xywh": [
+      830,
+      800,
+      340,
+      430
+    ],
+    "category": "04_npcs"
+  },
+  {
+    "file": "05_environment/city_skyline_strip.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      20,
+      5,
+      1410,
+      270
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/tower_crane.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      60,
+      250,
+      440,
+      340
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/excavator.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      430,
+      300,
+      360,
+      300
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/chain_fence.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      790,
+      315,
+      330,
+      280
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/solid_fence.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      1090,
+      315,
+      330,
+      280
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/safety_signboard.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      70,
+      570,
+      350,
+      220
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/traffic_cone_plain.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      445,
+      620,
+      130,
+      160
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/traffic_cone_striped_01.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      595,
+      620,
+      140,
+      160
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/traffic_cone_striped_02.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      760,
+      620,
+      140,
+      165
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/striped_barrier.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      920,
+      625,
+      310,
+      155
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/warning_light.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      1240,
+      635,
+      120,
+      140
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/cloud_01.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      70,
+      760,
+      210,
+      120
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/cloud_02.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      310,
+      760,
+      180,
+      110
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/cloud_03.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      490,
+      760,
+      190,
+      110
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/cloud_04.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      680,
+      750,
+      250,
+      130
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/cloud_05.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      940,
+      760,
+      180,
+      110
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/cloud_06.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      1120,
+      760,
+      230,
+      110
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/grass_ground_strip.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      40,
+      865,
+      1360,
+      130
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "05_environment/dirt_ground_strip.png",
+    "source_sheet": "건설_게임_자산_스프라이트_시트.png",
+    "crop_xywh": [
+      40,
+      965,
+      1360,
+      110
+    ],
+    "category": "05_environment"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_01.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      11,
+      10,
+      495,
+      366
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_02.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      503,
+      10,
+      568,
+      113
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_03.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1077,
+      13,
+      184,
+      57
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_04.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1077,
+      67,
+      184,
+      56
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_05.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1077,
+      120,
+      184,
+      57
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_06.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      514,
+      143,
+      533,
+      210
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_07.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1077,
+      175,
+      184,
+      57
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_08.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1052,
+      253,
+      99,
+      115
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_09.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1146,
+      253,
+      99,
+      115
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_10.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1241,
+      253,
+      99,
+      115
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_11.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1338,
+      253,
+      99,
+      115
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_12.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1052,
+      368,
+      99,
+      114
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_13.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      11,
+      384,
+      267,
+      161
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_14.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      277,
+      384,
+      175,
+      161
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_15.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      456,
+      400,
+      154,
+      126
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_16.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      749,
+      400,
+      151,
+      126
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_17.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      892,
+      400,
+      149,
+      126
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_18.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      604,
+      401,
+      152,
+      125
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_19.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1072,
+      528,
+      132,
+      70
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_20.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      945,
+      529,
+      130,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_21.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1199,
+      529,
+      131,
+      132
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_22.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1326,
+      529,
+      118,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_23.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      9,
+      547,
+      267,
+      306
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_24.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      274,
+      547,
+      268,
+      308
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_25.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      549,
+      550,
+      191,
+      134
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_26.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      739,
+      550,
+      192,
+      134
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_27.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1072,
+      592,
+      130,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_28.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      945,
+      593,
+      130,
+      68
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_29.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1326,
+      593,
+      118,
+      68
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_30.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      945,
+      655,
+      130,
+      129
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_31.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1072,
+      655,
+      130,
+      130
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_32.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1199,
+      655,
+      128,
+      129
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_33.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1326,
+      655,
+      118,
+      129
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_34.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      549,
+      691,
+      190,
+      134
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_35.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      739,
+      691,
+      192,
+      134
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_36.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      945,
+      778,
+      130,
+      68
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_37.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1072,
+      778,
+      130,
+      68
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_38.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1199,
+      778,
+      128,
+      68
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_39.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1326,
+      778,
+      118,
+      68
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_40.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      945,
+      839,
+      130,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_41.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1072,
+      839,
+      130,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_42.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1199,
+      839,
+      128,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_43.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1326,
+      839,
+      118,
+      69
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_44.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      6,
+      887,
+      410,
+      44
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_45.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      896,
+      910,
+      265,
+      58
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_46.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1164,
+      910,
+      280,
+      56
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_47.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      6,
+      935,
+      410,
+      44
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_48.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      896,
+      967,
+      264,
+      56
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_49.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1164,
+      967,
+      280,
+      56
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_50.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      7,
+      995,
+      408,
+      57
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_51.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      896,
+      1025,
+      264,
+      57
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "06_ui_components/06_ui_components_52.png",
+    "source_sheet": "레트로_픽셀_아트_ui_스프라이트_시트.png",
+    "crop_xywh": [
+      1164,
+      1025,
+      280,
+      56
+    ],
+    "category": "06_ui_components"
+  },
+  {
+    "file": "07_badges/first_builder.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      0,
+      220,
+      330,
+      420
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "07_badges/structure_understanding.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      295,
+      200,
+      360,
+      440
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "07_badges/brace_master.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      605,
+      210,
+      360,
+      440
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "07_badges/highrise_stabilization.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      920,
+      210,
+      330,
+      440
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "07_badges/balanced_designer.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      90,
+      625,
+      380,
+      440
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "07_badges/vibration_controller.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      445,
+      615,
+      380,
+      440
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "07_badges/seismic_master.png",
+    "source_sheet": "픽셀_스타일_성취_아이콘_세트.png",
+    "crop_xywh": [
+      750,
+      615,
+      390,
+      440
+    ],
+    "category": "07_badges"
+  },
+  {
+    "file": "08_stage_map/stage_beginner.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      60,
+      60,
+      260,
+      360
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_intermediate.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      335,
+      60,
+      270,
+      360
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_advanced.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      600,
+      60,
+      300,
+      360
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_boss_final.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      880,
+      45,
+      320,
+      380
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_locked.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      60,
+      420,
+      270,
+      370
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_cleared.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      330,
+      420,
+      280,
+      370
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_current_highlight.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      600,
+      420,
+      300,
+      370
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/stage_construction_cleared.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      880,
+      420,
+      320,
+      370
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/connector_node_square.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      120,
+      790,
+      120,
+      130
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/connector_horizontal.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      270,
+      780,
+      270,
+      130
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/connector_corner.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      560,
+      780,
+      170,
+      160
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/connector_t.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      705,
+      780,
+      240,
+      160
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/connector_cross.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      940,
+      780,
+      230,
+      160
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/dotted_node.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      130,
+      950,
+      110,
+      100
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/dotted_horizontal.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      275,
+      950,
+      250,
+      100
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/dotted_corner.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      565,
+      940,
+      170,
+      140
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/dotted_t.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      705,
+      940,
+      240,
+      140
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/dotted_cross.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      940,
+      940,
+      230,
+      150
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/flag_blue.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      180,
+      1080,
+      140,
+      150
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/flag_green.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      430,
+      1080,
+      140,
+      150
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/flag_yellow.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      670,
+      1080,
+      140,
+      150
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "08_stage_map/flag_red.png",
+    "source_sheet": "픽셀_아트_레벨_아이콘_시트.png",
+    "crop_xywh": [
+      920,
+      1080,
+      140,
+      150
+    ],
+    "category": "08_stage_map"
+  },
+  {
+    "file": "00_minimum_required/brace.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/shear-wall.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/damper.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/isolator.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/tmd.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/demolish.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/crack.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/warning.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/success-check.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/npc-worker.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/npc-mayor.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  },
+  {
+    "file": "00_minimum_required/npc-resident.png",
+    "source_sheet": "copied from sliced asset",
+    "crop_xywh": null,
+    "category": "00_minimum_required"
+  }
+]
